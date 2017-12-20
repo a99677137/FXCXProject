@@ -18,10 +18,13 @@ public class UnityEngine_LightWrap
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("type", get_type, set_type);
 		L.RegVar("color", get_color, set_color);
+		L.RegVar("colorTemperature", get_colorTemperature, set_colorTemperature);
 		L.RegVar("intensity", get_intensity, set_intensity);
 		L.RegVar("bounceIntensity", get_bounceIntensity, set_bounceIntensity);
 		L.RegVar("shadows", get_shadows, set_shadows);
 		L.RegVar("shadowStrength", get_shadowStrength, set_shadowStrength);
+		L.RegVar("shadowResolution", get_shadowResolution, set_shadowResolution);
+		L.RegVar("shadowCustomResolution", get_shadowCustomResolution, set_shadowCustomResolution);
 		L.RegVar("shadowBias", get_shadowBias, set_shadowBias);
 		L.RegVar("shadowNormalBias", get_shadowNormalBias, set_shadowNormalBias);
 		L.RegVar("shadowNearPlane", get_shadowNearPlane, set_shadowNearPlane);
@@ -32,6 +35,7 @@ public class UnityEngine_LightWrap
 		L.RegVar("flare", get_flare, set_flare);
 		L.RegVar("renderMode", get_renderMode, set_renderMode);
 		L.RegVar("alreadyLightmapped", get_alreadyLightmapped, set_alreadyLightmapped);
+		L.RegVar("isBaked", get_isBaked, null);
 		L.RegVar("cullingMask", get_cullingMask, set_cullingMask);
 		L.RegVar("commandBufferCount", get_commandBufferCount, null);
 		L.EndClass();
@@ -66,12 +70,29 @@ public class UnityEngine_LightWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 3);
-			UnityEngine.Light obj = (UnityEngine.Light)ToLua.CheckObject(L, 1, typeof(UnityEngine.Light));
-			UnityEngine.Rendering.LightEvent arg0 = (UnityEngine.Rendering.LightEvent)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.LightEvent));
-			UnityEngine.Rendering.CommandBuffer arg1 = (UnityEngine.Rendering.CommandBuffer)ToLua.CheckObject(L, 3, typeof(UnityEngine.Rendering.CommandBuffer));
-			obj.AddCommandBuffer(arg0, arg1);
-			return 0;
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 3)
+			{
+				UnityEngine.Light obj = (UnityEngine.Light)ToLua.CheckObject(L, 1, typeof(UnityEngine.Light));
+				UnityEngine.Rendering.LightEvent arg0 = (UnityEngine.Rendering.LightEvent)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.LightEvent));
+				UnityEngine.Rendering.CommandBuffer arg1 = (UnityEngine.Rendering.CommandBuffer)ToLua.CheckObject(L, 3, typeof(UnityEngine.Rendering.CommandBuffer));
+				obj.AddCommandBuffer(arg0, arg1);
+				return 0;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.Light obj = (UnityEngine.Light)ToLua.CheckObject(L, 1, typeof(UnityEngine.Light));
+				UnityEngine.Rendering.LightEvent arg0 = (UnityEngine.Rendering.LightEvent)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.LightEvent));
+				UnityEngine.Rendering.CommandBuffer arg1 = (UnityEngine.Rendering.CommandBuffer)ToLua.CheckObject(L, 3, typeof(UnityEngine.Rendering.CommandBuffer));
+				UnityEngine.Rendering.ShadowMapPass arg2 = (UnityEngine.Rendering.ShadowMapPass)ToLua.CheckObject(L, 4, typeof(UnityEngine.Rendering.ShadowMapPass));
+				obj.AddCommandBuffer(arg0, arg1, arg2);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: UnityEngine.Light.AddCommandBuffer");
+			}
 		}
 		catch (Exception e)
 		{
@@ -223,6 +244,25 @@ public class UnityEngine_LightWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_colorTemperature(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Light obj = (UnityEngine.Light)o;
+			float ret = obj.colorTemperature;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index colorTemperature on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_intensity(IntPtr L)
 	{
 		object o = null;
@@ -295,6 +335,44 @@ public class UnityEngine_LightWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index shadowStrength on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_shadowResolution(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Light obj = (UnityEngine.Light)o;
+			UnityEngine.Rendering.LightShadowResolution ret = obj.shadowResolution;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index shadowResolution on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_shadowCustomResolution(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Light obj = (UnityEngine.Light)o;
+			int ret = obj.shadowCustomResolution;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index shadowCustomResolution on a nil value");
 		}
 	}
 
@@ -489,6 +567,25 @@ public class UnityEngine_LightWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_isBaked(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Light obj = (UnityEngine.Light)o;
+			bool ret = obj.isBaked;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isBaked on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_cullingMask(IntPtr L)
 	{
 		object o = null;
@@ -565,6 +662,25 @@ public class UnityEngine_LightWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_colorTemperature(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Light obj = (UnityEngine.Light)o;
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.colorTemperature = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index colorTemperature on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_intensity(IntPtr L)
 	{
 		object o = null;
@@ -637,6 +753,44 @@ public class UnityEngine_LightWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index shadowStrength on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_shadowResolution(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Light obj = (UnityEngine.Light)o;
+			UnityEngine.Rendering.LightShadowResolution arg0 = (UnityEngine.Rendering.LightShadowResolution)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.LightShadowResolution));
+			obj.shadowResolution = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index shadowResolution on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_shadowCustomResolution(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			UnityEngine.Light obj = (UnityEngine.Light)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.shadowCustomResolution = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index shadowCustomResolution on a nil value");
 		}
 	}
 

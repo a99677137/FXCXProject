@@ -1,0 +1,1 @@
+2017-12-19 16:02:54 lua、table等文件移除Assets目录：由于lua和Table资源要被打包为bundle文件，如果文件在streamingAssets目录，需要每次打包后再做一遍删除源码。麻烦。。。
