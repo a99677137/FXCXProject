@@ -21,7 +21,7 @@ namespace Game.Tools.CommonTools
         public static StringBuilder GUIStringBulider = new StringBuilder();
 
         private static StreamWriter streamWriter = null;
-        private static string StrLogPath = "";
+        public static string StrLogPath = "";
         private static int GUIMaxLen = 1024 * 8;
         private static int GUIMinLen = 1024 * 4;
         static GameLog()
