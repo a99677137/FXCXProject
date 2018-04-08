@@ -1,1 +1,5 @@
 2017-12-19 16:02:54 lua、table等文件移除Assets目录：由于lua和Table资源要被打包为bundle文件，如果文件在streamingAssets目录，需要每次打包后再做一遍删除源码。麻烦。。。
+
+2018-3-28 10:49:40 TLBB lua所有trycatch的打印报错的地方：1GameManager的Tick~2UIModule的各个Function~3LuaScriptMgr的Tick~4协议收发的readstream和writestream   ----备忘
+
+2018-4-8 10:34:47 TLBB 海外的版本，在每次导出Studio工程的时候，so文件要单独拷贝。原因1：测试每次生成mono的包，使用的是libmono.so和相关libmain.so,ill2cpp的包的时候是不同的so文件。2：由于Obb包体过大，导致每次需要删除x86的so文件。obb的包不再支持x86手机
