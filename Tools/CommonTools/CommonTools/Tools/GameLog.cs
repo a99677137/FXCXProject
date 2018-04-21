@@ -37,11 +37,11 @@ namespace Game.Tools.CommonTools
                 {
                     string path = Application.persistentDataPath.Substring(0, Application.persistentDataPath.Length - 5);
                     path = path.Substring(0, path.LastIndexOf('/'));
-                    StrLogPath = Path.Combine(Path.Combine(path, "Documents"), String.Format("{0}{1}", GetCurDateTime(), "_GameLog.txt"));
+                    StrLogPath = Path.Combine(Path.Combine(path, "Documents"), String.Format("{0}{1}", GetFileDateTime(), "_GameLog.txt"));
                 }
                 else
                 {
-                    StrLogPath = String.Format("{0}{1}{2}", Application.persistentDataPath, GetCurDateTime(), "_GameLog.txt");
+                    StrLogPath = String.Format("{0}{1}{2}", Application.persistentDataPath, GetFileDateTime(), "_GameLog.txt");
                 }
 
                 if (File.Exists(StrLogPath) == false)
@@ -52,6 +52,11 @@ namespace Game.Tools.CommonTools
             {
                 streamWriter = null;
             }
+        }
+
+        private static string GetFileDateTime() {
+            var time = System.DateTime.Now;
+            return time.ToString("[yyyy-MM-dd_HH-mm-ss-ffff]");
         }
 
         private static string GetCurDateTime()
