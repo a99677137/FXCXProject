@@ -34,6 +34,8 @@ namespace Game.Lwn.Base
             GameLog.Debug("------------MainProcedure:Init----------Application.persistentDataPath = {0}", Application.persistentDataPath);
             GameLog.Debug("------------MainProcedure:Init----------Application.temporaryCachePath = {0}", Application.temporaryCachePath);
 
+
+
         }
 
         public void SwitchProcedure(LogicType next)

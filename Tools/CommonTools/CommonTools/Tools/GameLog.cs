@@ -16,7 +16,7 @@ namespace Game.Tools.CommonTools
             Exception = 4,
         }
 
-        public static bool IsGameDebug = true;
+        private static bool ShowLog = true;
         public static bool IsAutoClearGUILog = true;
         public static StringBuilder GUIStringBulider = new StringBuilder();
 
@@ -29,8 +29,13 @@ namespace Game.Tools.CommonTools
             Init();
         }
 
+        public static void CloseLog() {
+            ShowLog = false;
+        }
+
         private static void Init()
         {
+            if (!ShowLog) { return; }
             try
             {
                 if (Application.platform == RuntimePlatform.IPhonePlayer)
@@ -67,31 +72,45 @@ namespace Game.Tools.CommonTools
 
         public static void Debug(string msg, params object[] args)
         {
-            Log(LogType.Debug, msg, args);
+            if (ShowLog) {
+                Log(LogType.Debug, msg, args);
+            }
             UnityEngine.Debug.Log(string.Format(msg, args));
         }
 
         public static void LuaDebug(string msg, params object[] args)
         {
-            Log(LogType.Lua, msg, args);
+            if (ShowLog)
+            {
+                Log(LogType.Lua, msg, args);
+            }
             UnityEngine.Debug.Log(string.Format(msg, args));
         }
 
         public static void Error(string msg, params object[] args)
         {
-            Log(LogType.Error, msg, args);
+            if (ShowLog)
+            {
+                Log(LogType.Error, msg, args);
+            }
             UnityEngine.Debug.LogError(string.Format(msg, args));
         }
 
         public static void LuaError(string msg, params object[] args)
         {
-            Log(LogType.LuaError, msg, args);
+            if (ShowLog)
+            {
+                Log(LogType.LuaError, msg, args);
+            }
             UnityEngine.Debug.LogError(string.Format(msg, args));
         }
 
         public static void Exception(string msg, params object[] args)
         {
-            Log(LogType.Exception, msg, args);
+            if (ShowLog)
+            {
+                Log(LogType.Exception, msg, args);
+            }
             UnityEngine.Debug.LogException(new System.Exception(string.Format(msg, args)));
         }
 

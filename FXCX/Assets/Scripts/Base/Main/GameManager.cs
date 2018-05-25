@@ -2,6 +2,7 @@
 using UnityEngine;
 using Game.Tools.CommonTools;
 using Game.Lwn.Base;
+using CodeStage.AdvancedFPSCounter;
 
 public class GameManager : MonoBehaviour {
 
@@ -13,6 +14,9 @@ public class GameManager : MonoBehaviour {
 
     void Awake()
     {
+#if !GAMEDEBUG
+        GameLog.CloseLog();
+#endif
         Init();
         MainProcedure.Instance.Init();
     }
@@ -46,7 +50,7 @@ public class GameManager : MonoBehaviour {
     }
 
 
-    #region GUI
+#region GUI
 
 #if GAMEDEBUG
     private bool IsShowGUILog = false;
@@ -77,12 +81,12 @@ public class GameManager : MonoBehaviour {
 
 
 
-    #endregion //GUI
+#endregion //GUI
 
 
-    #endregion //MonoBehaviour
+#endregion //MonoBehaviour
 
-    #region GameLogic
+#region GameLogic
 
     void Init() {
         GameLog.Debug("***************GameManager:Init**************************************");
@@ -94,5 +98,5 @@ public class GameManager : MonoBehaviour {
     }
 
 
-    #endregion
+#endregion
 }
