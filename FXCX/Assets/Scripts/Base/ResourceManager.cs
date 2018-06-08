@@ -7,11 +7,11 @@ using Game.Lwn.Base;
 public class ResourceManager:Singleton<ResourceManager> {
 
 
-    public string LoadGameConfig(string path)
+    public void LoadGameConfig()
     {
         //var absulutePath = ResourceBase.Instance.GetCFGPath() + path;
-
-        return null;
+        string res = ResourceBase.Instance.LoadConfigFile("GameCFG.cfg");
+        GameCFG.Instance.Parse(res);
     }
 
 
