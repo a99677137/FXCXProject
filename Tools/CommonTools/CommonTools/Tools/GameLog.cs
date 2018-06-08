@@ -111,7 +111,7 @@ namespace Game.Tools.CommonTools
             {
                 Log(LogType.Exception, msg, args);
             }
-            UnityEngine.Debug.LogException(new System.Exception(string.Format(msg, args)));
+            UnityEngine.Debug.LogException(new System.Exception(string.Format(GetCurDateTime()+msg, args)));
         }
 
 
