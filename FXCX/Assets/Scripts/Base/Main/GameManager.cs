@@ -24,10 +24,17 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         GameLog.Debug("***************GameManager:Start**************************************");
+
+        //Test---------------------------
+        EventManager.RegisterEvent(DataEvent.TestEvent,OnTestEvent);
+        EventManager.RegisterEvent(DataEvent.TestAsyncEvent, OnTestAsyncEvent);
+        //Test---------------------------
     }
 
-	// Update is called once per frame
-	void Update () {
+
+
+    // Update is called once per frame
+    void Update () {
         try{
 #if GCALLOC
             UnityEngine.Profiling.Profiler.BeginSample("Tick((uint)gapTime)");
@@ -92,11 +99,25 @@ public class GameManager : MonoBehaviour {
         GameLog.Debug("***************GameManager:Init**************************************");
     }
 
+    private int a = 0;
     void Tick(uint uDeltaTimeMS) {
+        a += 1;
+        GameLog.Debug("<color=#9900ff>----------------------CurFrame = {0}---------------</color>", a);
         //GameLog.Debug("***************uDeltaTimeMS = {0}", uDeltaTimeMS);
+        EventManager.Tick(uDeltaTimeMS);
         MainProcedure.Instance.Tick(uDeltaTimeMS);
     }
 
 
+    public void OnTestEvent(object[] param) {
+        string test = param[0].ToString();
+        GameLog.Debug("<color=#00ff11>----------------------------OnTestEvent:{0}------------------------------</color>", test);
+        EventManager.UnRegisterEvent(DataEvent.TestEvent, OnTestEvent);
+    }
+    public void OnTestAsyncEvent(object[] param) {
+        string test = param[0].ToString();
+        GameLog.Debug("<color=#00ff11>---------------------------OnTestAsyncEvent:{0}------------------------------</color>", test);
+        EventManager.UnRegisterEvent(DataEvent.TestAsyncEvent, OnTestAsyncEvent);
+    }
 #endregion
 }
