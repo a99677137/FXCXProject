@@ -14,6 +14,11 @@ public class ResourceManager:Singleton<ResourceManager> {
         GameCFG.Instance.Parse(res);
     }
 
+    public void LoadGameInitConfig()
+    {
+        string res = ResourceBase.Instance.LoadConfigFile("GameInitCFG.cfg");
+        GameInitCFG.Instance.Parse(res);
+    }
 
 
     public UnityEngine.Object ResourceLoadUnityObj(string path) {

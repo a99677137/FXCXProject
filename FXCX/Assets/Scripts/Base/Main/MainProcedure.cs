@@ -36,23 +36,11 @@ namespace Game.Lwn.Base
             GameLog.Debug("------------MainProcedure:Init----------Application.persistentDataPath = {0}", Application.persistentDataPath);
             GameLog.Debug("------------MainProcedure:Init----------Application.temporaryCachePath = {0}", Application.temporaryCachePath);
 
+            EventManager.RegisterEvent(DataEvent.FinishLoadGameConfig, OnFinishLoadGameConfig);
+            EventManager.RegisterEvent(DataEvent.FinishLoadLoginScenes, OnFinishLoadLoginScenes);
         }
 
-        private void LoadGameInitConfig() {
-            GameLog.Debug("------------MainProcedure:LoadGameInitConfig----------");
-        }
-
-        private void LoadGameConfig() {
-            ResourceManager.Instance.LoadGameConfig();
-
-            //-------------Test-------------------
-            int aaa = GameCFG.Instance.GetInt("Global", "TestInt");
-            GameLog.Debug("------------MainProcedure:Init----------aaa = {0}", aaa);
-            string bbb = GameCFG.Instance.GetString("Global", "TestString");
-            GameLog.Debug("------------MainProcedure:Init----------bbb = {0}", bbb);
-            //-------------Test End---------------
-        }
-
+       
 
         private void SwitchProcedure(LogicType next)
         {
@@ -73,7 +61,7 @@ namespace Game.Lwn.Base
                     break;
                 case LogicType.Config:
                     GameLog.Debug("--------------------MainProcedure:Tick----------Config----");
-                    LoadGameInitConfig();
+                    GameConfigManager.Instance.LoadGameInitConfig();
                     SwitchProcedure(LogicType.DownLoad);
                     break;
                 case LogicType.DownLoad:
@@ -84,9 +72,12 @@ namespace Game.Lwn.Base
                     break;
                 case LogicType.GameInit:
                     GameLog.Debug("--------------------MainProcedure:Tick----------GameInit----");
-                    LoadGameConfig();
-                    InitLoginScene();
-                    SwitchProcedure(LogicType.Login);
+                    GameConfigManager.Tick(uDeltaTimeMS);
+                    ScenesManager.Instance.InitLoginScene();
+                    GameConfigManager.Instance.GameConfigInit();
+                    if (_finishLoadGameConfig && _finishLoadLoginScenes) {
+                        SwitchProcedure(LogicType.Login);
+                    }
                     break;
                 case LogicType.Login:
                     GameLog.Debug("--------------------MainProcedure:Tick----------Login----");
@@ -112,10 +103,19 @@ namespace Game.Lwn.Base
 
 
         #region Logic
-        private void InitLoginScene()
-        {
 
+        private bool _finishLoadGameConfig = false;
+        private bool _finishLoadLoginScenes = false;
+
+        private void OnFinishLoadGameConfig(object[] param) {
+            _finishLoadGameConfig = true;
         }
+
+        private void OnFinishLoadLoginScenes(object[] param)
+        {
+            _finishLoadLoginScenes = true;
+        }
+
         #endregion
     }
 }
