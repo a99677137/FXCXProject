@@ -73,49 +73,53 @@ namespace Game.Tools.CommonTools
         public static void Debug(string msg, params object[] args)
         {
             if (ShowLog) {
-                Log(LogType.Debug, msg, args);
+                string log = Log(LogType.Debug, msg, args);
+                UnityEngine.Debug.Log(log);
             }
-            UnityEngine.Debug.Log(string.Format(msg, args));
+            
         }
 
         public static void LuaDebug(string msg, params object[] args)
         {
             if (ShowLog)
             {
-                Log(LogType.Lua, msg, args);
+                string log = Log(LogType.Lua, msg, args);
+                UnityEngine.Debug.Log(log);
             }
-            UnityEngine.Debug.Log(string.Format(msg, args));
+            
         }
 
         public static void Error(string msg, params object[] args)
         {
             if (ShowLog)
             {
-                Log(LogType.Error, msg, args);
+                string log = Log(LogType.Error, msg, args);
+                UnityEngine.Debug.LogError(log);
             }
-            UnityEngine.Debug.LogError(string.Format(msg, args));
         }
 
         public static void LuaError(string msg, params object[] args)
         {
             if (ShowLog)
             {
-                Log(LogType.LuaError, msg, args);
+                string log = Log(LogType.LuaError, msg, args);
+                UnityEngine.Debug.LogError(log);
             }
-            UnityEngine.Debug.LogError(string.Format(msg, args));
+            
         }
 
         public static void Exception(string msg, params object[] args)
         {
             if (ShowLog)
             {
-                Log(LogType.Exception, msg, args);
+                string log = Log(LogType.Exception, msg, args);
+                UnityEngine.Debug.LogException(new System.Exception(log));
             }
-            UnityEngine.Debug.LogException(new System.Exception(string.Format(GetCurDateTime()+msg, args)));
+            
         }
 
 
-        private static void Log(LogType type, string msg, params object[] args)
+        private static string Log(LogType type, string msg, params object[] args)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(GetCurDateTime());
@@ -140,6 +144,7 @@ namespace Game.Tools.CommonTools
             builder.AppendFormat(msg, args);
             builder.Append("\r\n");
             OutPut(builder.ToString());
+            return builder.ToString();
         }
 
 

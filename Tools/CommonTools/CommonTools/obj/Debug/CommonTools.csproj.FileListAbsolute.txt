@@ -2,6 +2,5 @@ E:\FXCX\Tools\CommonTools\CommonTools\bin\Debug\CommonTools.dll
 E:\FXCX\Tools\CommonTools\CommonTools\bin\Debug\CommonTools.pdb
 E:\FXCX\Tools\CommonTools\CommonTools\bin\Debug\UnityEngine.dll
 E:\FXCX\Tools\CommonTools\CommonTools\bin\Debug\UnityEngine.xml
-E:\FXCX\Tools\CommonTools\CommonTools\obj\Debug\CommonTools.csprojResolveAssemblyReference.cache
 E:\FXCX\Tools\CommonTools\CommonTools\obj\Debug\CommonTools.dll
 E:\FXCX\Tools\CommonTools\CommonTools\obj\Debug\CommonTools.pdb
