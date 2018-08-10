@@ -642,7 +642,7 @@ public static class ToLuaMenu
         sb.AppendLineEx("{");
         sb.AppendLineEx("\tpublic static void Bind(LuaState L)");
         sb.AppendLineEx("\t{");
-        sb.AppendLineEx("\t\tfloat t = Time.realtimeSinceStartup;");
+        //sb.AppendLineEx("\t\tfloat t = Time.realtimeSinceStartup;");
         sb.AppendLineEx("\t\tL.BeginModule(null);");
 
         GenRegisterInfo(null, sb, list, dtList);
@@ -685,7 +685,7 @@ public static class ToLuaMenu
             sb.AppendLineEx("\t\tL.EndPreLoad();");
         }
 
-        sb.AppendLineEx("\t\tDebugger.Log(\"Register lua type cost time: {0}\", Time.realtimeSinceStartup - t);");
+        //sb.AppendLineEx("\t\tDebugger.Log(\"Register lua type cost time: {0}\", Time.realtimeSinceStartup - t);");
         sb.AppendLineEx("\t}");
 
         for (int i = 0; i < dtList.Count; i++)

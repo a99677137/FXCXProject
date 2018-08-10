@@ -152,6 +152,7 @@ namespace LuaInterface
                 {
                     CString sb = CString.Alloc(256);
 #if UNITY_EDITOR
+                    sb.Append("<color=#FFF000>");
                     int line = LuaDLL.tolua_where(L, 1);
                     string filename = LuaDLL.lua_tostring(L, -1);
                     LuaDLL.lua_settop(L, n);
@@ -198,7 +199,11 @@ namespace LuaInterface
                         }
                     }
 
-                    Debugger.Log(sb.ToString());            //200行与_line一致
+                    //Debugger.Log(sb.ToString());            //200行与_line一致
+#if UNITY_EDITOR
+                    sb.Append("</color>");
+#endif
+                    Game.Tools.CommonTools.GameLog.LuaDebug( sb.ToString());
                 }
                 return 0;
             }
@@ -388,7 +393,8 @@ namespace LuaInterface
                 }
                 else
                 {
-                    Debugger.LogError("type not register to lua");
+                    //Debugger.LogError("type not register to lua");
+                    Game.Tools.CommonTools.GameLog.LuaError("type not register to lua");
                     LuaDLL.lua_pushnil(L);
                 }
             }
@@ -1777,12 +1783,12 @@ namespace LuaInterface
 
         public static object[] ToParamsObject(IntPtr L, int stackPos, int count)
         {
+            object[] list = new object[count];
             if (count <= 0)
             {
-                return null;
+                return list;
             }
 
-            object[] list = new object[count];
             int pos = 0;
 
             while (pos < count)
@@ -2579,7 +2585,8 @@ namespace LuaInterface
             if (LuaOpenLib != null)
             {
 #if UNITY_EDITOR
-                Debugger.LogWarning("register PreLoad type {0} to lua", LuaMisc.GetTypeName(type));
+                //Debugger.LogWarning("register PreLoad type {0} to lua", LuaMisc.GetTypeName(type));
+                Game.Tools.CommonTools.GameLog.LuaDebug("register PreLoad type {0} to lua", LuaMisc.GetTypeName(type));
 #endif
                 reference = LuaPCall(L, LuaOpenLib);                
             }

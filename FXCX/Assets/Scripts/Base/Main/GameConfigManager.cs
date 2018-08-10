@@ -64,9 +64,9 @@ class GameConfigManager : Singleton<GameConfigManager>
         if (_gameLua_Finish)
         {
             return;
-        }
+        } 
         GameLog.Debug("------------GameConfigManager:InitLua----------");
-        //TODO-----
+        LuaManager.Instance.Start();
         _gameLua_Finish = true;
         EventManager.SendEvent(DataEvent.FinishLoadGameConfig);
     }

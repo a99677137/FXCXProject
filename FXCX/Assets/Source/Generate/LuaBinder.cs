@@ -7,9 +7,15 @@ public static class LuaBinder
 {
 	public static void Bind(LuaState L)
 	{
-		float t = Time.realtimeSinceStartup;
 		L.BeginModule(null);
 		LuaInterface_DebuggerWrap.Register(L);
+		L.BeginModule("Game");
+		L.BeginModule("Tools");
+		L.BeginModule("CommonTools");
+		Game_Tools_CommonTools_GameLogWrap.Register(L);
+		L.EndModule();
+		L.EndModule();
+		L.EndModule();
 		L.BeginModule("UnityEngine");
 		UnityEngine_ComponentWrap.Register(L);
 		UnityEngine_TransformWrap.Register(L);
@@ -89,7 +95,6 @@ public static class LuaBinder
 		L.AddPreLoad("UnityEngine.RenderTexture", LuaOpen_UnityEngine_RenderTexture, typeof(UnityEngine.RenderTexture));
 		L.AddPreLoad("UnityEngine.Rigidbody", LuaOpen_UnityEngine_Rigidbody, typeof(UnityEngine.Rigidbody));
 		L.EndPreLoad();
-		Debugger.Log("Register lua type cost time: {0}", Time.realtimeSinceStartup - t);
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]

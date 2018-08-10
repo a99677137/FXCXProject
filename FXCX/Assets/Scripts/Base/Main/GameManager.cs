@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         GameLog.Debug("***************GameManager:Start**************************************");
-
         //Test---------------------------
         EventManager.RegisterEvent(DataEvent.TestEvent,OnTestEvent);
         EventManager.RegisterEvent(DataEvent.TestAsyncEvent, OnTestAsyncEvent);

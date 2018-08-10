@@ -62,6 +62,7 @@ namespace Game.Lwn.Base
                 case LogicType.Config:
                     GameLog.Debug("--------------------MainProcedure:Tick----------Config----");
                     GameConfigManager.Instance.LoadGameInitConfig();
+                    LuaManager.Instance.Init();
                     SwitchProcedure(LogicType.DownLoad);
                     break;
                 case LogicType.DownLoad:

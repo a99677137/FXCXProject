@@ -5,6 +5,7 @@ using LuaInterface;
 
 using BindType = ToLuaMenu.BindType;
 using System.Reflection;
+using Game.Tools.CommonTools;
 
 public static class CustomSettings
 {
@@ -54,7 +55,14 @@ public static class CustomSettings
         //_GT(typeof(TestExport.Space)),
         //-------------------------------------------------------------------        
                         
-        _GT(typeof(Debugger)).SetNameSpace(null),          
+        _GT(typeof(Debugger)).SetNameSpace(null),
+
+        #region Game
+
+        _GT(typeof(Game.Tools.CommonTools.GameLog)),
+
+        #endregion
+
 
 #if USING_DOTWEENING
         _GT(typeof(DG.Tweening.DOTween)),
@@ -75,7 +83,7 @@ public static class CustomSettings
         //_GT(typeof(LineRenderer)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
         //_GT(typeof(TrailRenderer)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),    
 #else
-                                         
+
         _GT(typeof(Component)),
         _GT(typeof(Transform)),
         _GT(typeof(Material)),
