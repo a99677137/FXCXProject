@@ -3,3 +3,4 @@ FXCX/Temp
 *.csproj
 *.sln
 FXCX/.vs
+package/
