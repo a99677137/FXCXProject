@@ -10,17 +10,26 @@ namespace CSharp_Flatbuffers
 
         static void Main(string[] args)
         {
-            InitFlatbuffers();
-            int res = int.Parse(Console.ReadLine());
-            if (res == 1) {
-                ReadData();
-            }
+            string path = Environment.CurrentDirectory;
+
+            //test1:通过代码写bin 文件
+            //InitFlatbuffers();
+            //int res = int.Parse(Console.ReadLine());
+            //if (res == 1) {
+            //    path = path + "//..//..//..//FB_output//test.bin";
+            //    ReadData(path);
+            //}
+
+            //test2:通过fbs和json文件生成bin文件后读取
+            path = path + "//..//..//..//FB_output_auto//test.bin";
+            ReadData(path);
+
             Console.ReadLine();
         }
 
-        private static void ReadData() {
-            string path = Environment.CurrentDirectory;
-            path = path + "//..//..//..//FB_output//test.bin";
+        private static void ReadData(string path) {
+            
+            
             //FileStream file = null;
             //BinaryReader br = null;
             try
