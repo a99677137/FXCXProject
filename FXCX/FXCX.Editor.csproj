@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.2.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -334,28 +336,140 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\Custom\CustomSettings.cs" />
+    <Compile Include="Assets\Editor\TableTool\TableItemVO.cs" />
+    <Compile Include="Assets\Editor\TableTool\TableToolManager.cs" />
+    <Compile Include="Assets\Editor\TableTool\TableToolPanel.cs" />
     <Compile Include="Assets\Scripts\Base\Editor\FXCX_PostProcess.cs" />
     <Compile Include="Assets\ThridParty\CodeStage\AdvancedFPSCounter\Scripts\Editor\AFPSCounterEditor.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_EventObject.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_LuaConstructor.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_LuaField.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_LuaMethod.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_LuaProperty.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_System_Delegate.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_System_Enum.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_System_Object.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_System_String.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_System_Type.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_UnityEngine_GameObject.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_UnityEngine_Input.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_UnityEngine_Object.cs" />
-    <Compile Include="Assets\ToLua\Editor\Extend\ToLua_UnityEngine_RectTransform.cs" />
-    <Compile Include="Assets\ToLua\Editor\ToLuaExport.cs" />
-    <Compile Include="Assets\ToLua\Editor\ToLuaMenu.cs" />
-    <Compile Include="Assets\ToLua\Editor\ToLuaTree.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\ActiveAnimationEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\BMFontReader.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\ComponentSelector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\EventDelegateDrawer.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\EventDelegateEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\FreeType.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\MinMaxRangeAttributeDrawer.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\NGUIContextMenu.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\NGUIEditorExtensions.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\NGUIEditorTools.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\NGUIHandles.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\NGUIHelp.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\NGUIJson.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\NGUIMenu.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\NGUISelectionTools.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\NGUISettings.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\NGUISnap.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\NGUITransformInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\PropertyBindingEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\PropertyReferenceDrawer.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\SpriteSelector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\TweenAlphaEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\TweenColorEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\TweenFOVEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\TweenHeightEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\TweenOrthoSizeEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\TweenPositionEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\TweenRotationEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\TweenScaleEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\TweenTransformEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\TweenVolumeEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\TweenWidthEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\TypewriterEffectEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UI2DSpriteEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIAnchorEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIAtlasInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIAtlasMaker.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIBasicSpriteEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIButtonColorEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIButtonEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIButtonKeysEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIButtonMessageEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UICameraEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UICameraTool.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIColorPickerEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UICreateNewUIWizard.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UICreateWidgetWizard.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIDragObjectEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIDrawCallInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIDrawCallViewer.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIEventTriggerEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIFontInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIFontMaker.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIForwardEventsEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIGridEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIImageButtonInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIInputEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIKeyNavigationEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UILabelInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UILocalizeEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIPanelInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIPanelTool.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIPlayAnimationEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIPlayTweenEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIPopupListInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIPrefabTool.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIProgressBarEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIRectEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIRootEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIScrollBarEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIScrollViewEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UISliderEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UISnapshotPointEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UISpriteAnimationInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UISpriteInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIStretchEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UITableEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UITextureInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UITexturePacker.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIToggleInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UITweenerEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIWidgetContainerEditor.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIWidgetInspector.cs" />
+    <Compile Include="Assets\ThridParty\NGUI\Scripts\Editor\UIWrapContentEditor.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_LuaInterface_EventObject.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_LuaInterface_LuaConstructor.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_LuaInterface_LuaField.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_LuaInterface_LuaMethod.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_LuaInterface_LuaProperty.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_System_Delegate.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_System_Enum.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_System_Object.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_System_String.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_System_Type.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_UnityEngine_GameObject.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_UnityEngine_Input.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_UnityEngine_Object.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\Extend\ToLua_UnityEngine_RectTransform.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\ToLuaExport.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\ToLuaMenu.cs" />
+    <Compile Include="Assets\ThridParty\ToLua\Editor\ToLuaTree.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\ToLua\readme.txt" />
+    <None Include="Assets\ThridParty\NGUI\ReadMe - 3.12.1.txt" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (TextureClip).shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 1.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 2.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 3.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Premultiplied Colored.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Text (TextureClip).shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Text 1.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Text 2.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Text 3.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Text.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (TextureClip).shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Colored (TextureClip).shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Colored 1.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Colored 2.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Colored 3.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Masked 1.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Masked 2.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Masked 3.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Masked.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Packed 1.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Packed 2.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
+    <None Include="Assets\ThridParty\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
+    <None Include="Assets\ThridParty\ToLua\readme.txt" />
     <None Include="Assets\link.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
