@@ -1,0 +1,6 @@
+flatbuffers工作流程：
+1将数据表转化为.json文件和flatbuffers需要的结构schema的.fbs文件。
+2将.fbs和.json文件，以及flatc.exe文件放在同一级目录文件夹下，执行：flatc -j -b ./test.fb
+	即可的到对应的flatbuffers自动生成的类文件。
+3然后通过FlatBufferBuilder来将数据存储为二进制的.bin文件。
+4可以从.bin文件读取数据

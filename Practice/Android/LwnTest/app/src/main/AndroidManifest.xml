@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lwn.lwntest">
+
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="27" />
+
+
+    <!--查询当前手机是否是模拟器AndroidEmulatorManager begin -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!--查询当前手机是否是模拟器AndroidEmulatorManager end -->
+
+    <!--flatbuffers begin -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <!--flatbuffers end -->
+
+    <!-- 获取手机硬件信息HardInfoActivity begin -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <!-- 获取手机硬件信息HardInfoActivity end -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- 通过网页拉起客户端 begin -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="localhost"
+                    android:port="80"
+                    android:scheme="lwntest"/>  <!-- scheme只能使用小写字母吆 -->
+            </intent-filter>
+            <!-- 通过网页拉起客户端 end -->
+
+        </activity>
+
+        <activity
+            android:name="com.lwn.lwntest.normal.TestSchemeActivity"
+            android:label="@string/TestSchemeActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host ="aa.bb"
+                    android:scheme="lwntestactivity"/>
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name="com.lwn.lwntest.flatbuffers.FlatbuffersActivity"
+            android:label="@string/FlatbuffersActivity" >
+        </activity>
+
+        <activity
+            android:name="com.lwn.lwntest.normal.HardInfoActivity"
+            android:label="@string/HardInfoActivity" >
+        </activity>
+
+        <!--
+        <receiver android:name=".LwnReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+        -->
+
+        <!--
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.lwn.lwntest.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+        -->
+
+    </application>
+
+</manifest>

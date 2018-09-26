@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">LwnTest</string>
+
+    <string name="LwnTest">Hello LwnTest!</string>
+
+    <string name = "TestSchemeActivityTitle">Hello TestSchemeActivity!</string>
+    <string name = "TestSchemeActivity">TestSchemeActivity</string>
+    <string name = "FlatbuffersActivity">FlatbuffersActivity</string>
+
+    <string name = "LowBrightnessBtn">LowBtn</string>
+    <string name = "HighBrightnessBtn">HighBtn</string>
+
+    <string name = "CallDialBtn">CallDialBtn</string>
+    <string name = "CallLocation">CallLocation</string>
+    <string name = "CallWebBrowse">CallWebBrowse</string>
+    <string name = "CallQQ">CallQQ</string>
+    <string name = "CallActivity">CallActivity</string>
+    <string name = "CallFlatbuffers">CallFlatbuffers</string>
+    <string name="CallHardInfo">CallHardInfo</string>
+    <string name="HardInfoActivity">HardInfoActivity</string>
+
+</resources>

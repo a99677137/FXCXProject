@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lwn.lwntest.MainActivity">
+
+    <TextView
+        android:id="@+id/sample_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:orientation="vertical">
+        <Button
+            android:id = "@+id/LowBrightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/LowBrightnessBtn"
+            />
+        <Button
+            android:id = "@+id/HighBrightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text ="@string/HighBrightnessBtn"
+            />
+        <TextView
+            android:id="@+id/msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            />
+        <TextView
+            android:id="@+id/prop"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            />
+        <TextView
+            android:id="@+id/IMEI"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            />
+        <TextView
+            android:id="@+id/Emulator"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            />
+        <TextView
+            android:id="@+id/EmulatorDetail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            />
+        <TextView
+            android:id="@+id/HelloWorld"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id = "@+id/CallDial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="@string/CallDialBtn"
+                />
+            <Button
+                android:id = "@+id/CallLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="@string/CallLocation"
+                />
+            <Button
+                android:id = "@+id/CallWebBrowse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="@string/CallWebBrowse"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id = "@+id/CallQQ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="@string/CallQQ"
+                />
+
+            <Button
+                android:id = "@+id/CallActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="@string/CallActivity"
+                />
+
+            <Button
+                android:id = "@+id/CallFlatbuffers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="@string/CallFlatbuffers"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id = "@+id/CallHardInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="@string/CallHardInfo"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
