@@ -1,0 +1,7 @@
+int	string	string
+唯一Id	注释	中文简体
+Id	#Description	CH_Value
+#系统提示1-1000		
+1	测试	我是测试
+2	测试	Demo
+#3	测试	我是测试#

@@ -1,0 +1,5 @@
+int	string	string
+唯一Id	注释	路径
+Id	#Description	Path
+#1-100000是UI资源	100001以后是UI资源	200001以后是音频资源
+1	登录UI	Resource/UI/LoginPanel
