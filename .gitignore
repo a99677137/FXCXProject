@@ -1,6 +1,5 @@
 FXCX/Library
 FXCX/Temp
-*.csproj
 *.sln
 FXCX/.vs
 package/
