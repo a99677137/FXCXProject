@@ -1,0 +1,15 @@
+ namespace Games.TLBB.Table.Static;
+
+ table UIResTableVO{
+ Id:int;
+Info:string;
+NorResPath:string;
+LowResPath:string;
+State:int;
+}
+
+ table UIResTable{
+    data:[UIResTableVO];
+ }
+ 
+root_type UIResTable;
