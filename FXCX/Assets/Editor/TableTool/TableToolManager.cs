@@ -206,7 +206,7 @@ public class TableToolManager  {
         StringBuilder data = new StringBuilder();
         for (int i =0;i<dataValues.Count; i++) {
             string line = dataValues[i];
-            data.AppendLine("{");
+            data.Append("{");
             string[] linedata = line.Split('\t');
             if (linedata.Length == columnNames.Count)
             {
