@@ -16,6 +16,9 @@
 
 #include "flatbuffers/flatc.h"
 
+#define LwnDebug
+
+
 static const char *g_program_name = nullptr;
 
 static void Warn(const flatbuffers::FlatCompiler *flatc,
@@ -33,7 +36,14 @@ static void Error(const flatbuffers::FlatCompiler *flatc,
   exit(1);
 }
 
-int main(int argc, const char *argv[]) {
+int main(int argc, const char *arg[]) {
+
+#ifdef LwnDebug
+	argc = 4;
+	const char *argv[4] = { "-n","-b","UIResTable.fbs","UIResTable.json" };
+#endif // LwnDebug
+
+
   g_program_name = argv[0];
 
   const flatbuffers::FlatCompiler::Generator generators[] = {
