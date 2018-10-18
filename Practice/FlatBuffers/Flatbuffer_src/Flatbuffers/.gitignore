@@ -1,0 +1,6 @@
+.vs
+*.sdf
+*.filters
+/Debug
+/x64
+/Release

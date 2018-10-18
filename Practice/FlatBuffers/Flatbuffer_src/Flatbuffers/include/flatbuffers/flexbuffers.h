@@ -19,9 +19,9 @@
 
 #include <map>
 // Used to select STL variant.
-#include "base.h"
+#include "flatbuffers/base.h"
 // We use the basic binary writing functions from the regular FlatBuffers.
-#include "util.h"
+#include "flatbuffers/util.h"
 
 #ifdef _MSC_VER
 #  include <intrin.h>

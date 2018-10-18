@@ -19,7 +19,7 @@
 
 #include <map>
 #include <sstream>
-#include "idl.h"
+#include "flatbuffers/idl.h"
 
 namespace flatbuffers {
 
