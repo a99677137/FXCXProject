@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.lwn.lwntest.MainActivity;
 import com.lwn.lwntest.R;
 
 import java.io.BufferedReader;
@@ -31,7 +32,9 @@ public class LogCatActivity extends Activity implements  Runnable {
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logcat);
+        android.os.Process.myPid();
 
+        TlbbLog.d("Process Id = " + android.os.Process.myPid());
         msg = this.findViewById(R.id.MsgContent);
         msg.setText("Start!");
         msg.setMovementMethod(ScrollingMovementMethod.getInstance());
@@ -91,7 +94,8 @@ public class LogCatActivity extends Activity implements  Runnable {
 
         TlbbLog.d("!!! ThreadRun!!!!");
         try{
-            mLogcatProc = Runtime.getRuntime().exec( new String[]{"logcat",TlbbLog.getTag()+":D *:S"});
+//            mLogcatProc = Runtime.getRuntime().exec( new String[]{"logcat",TlbbLog.getTag()+":D *:S"});
+            mLogcatProc = Runtime.getRuntime().exec( new String[]{"logcat","|find","\"" +  MainActivity.ProcessId + "\""});
             reader = new BufferedReader(new InputStreamReader(mLogcatProc.getInputStream()));
 
             String line = "";

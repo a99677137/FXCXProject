@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Process;
 import android.provider.Settings;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
@@ -48,14 +49,21 @@ public class MainActivity extends AppCompatActivity {
 
     private static TextView msgTextView ;
 
+    public static int ProcessId = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ProcessId = android.os.Process.myPid();
+
+        TlbbLog.d("Process Id = " + ProcessId);
+
         // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.sample_text);
         tv.setText(stringFromJNI());
+
 
 
         CurActivity = this;
