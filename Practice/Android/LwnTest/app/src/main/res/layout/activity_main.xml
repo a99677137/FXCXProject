@@ -132,6 +132,12 @@
                 android:layout_height="wrap_content"
                 android:text ="@string/CallHardInfo"
                 />
+            <Button
+                android:id = "@+id/CallLogcat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="@string/CallLogcat"
+                />
 
         </LinearLayout>
     </LinearLayout>

@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.lwn.lwntest.flatbuffers.FlatbuffersActivity;
 import com.lwn.lwntest.normal.AndroidEmulatorManager;
 import com.lwn.lwntest.normal.HardInfoActivity;
+import com.lwn.lwntest.normal.LogCatActivity;
 import com.lwn.lwntest.normal.LwnTestUtil;
 import com.lwn.lwntest.normal.PropertyUtils;
 import com.lwn.lwntest.normal.ScreenShotHelper;
@@ -62,6 +63,16 @@ public class MainActivity extends AppCompatActivity {
         //ShowSysDialog("Test","LWNTest!!!","OK","Cancel");
 
         TextView statuTxt =  (TextView)this.findViewById(R.id.prop);
+
+        Button callLogcat = (Button)this.findViewById(R.id.CallLogcat);
+        callLogcat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intenta = new Intent();
+                intenta.setClass(MainActivity.this, LogCatActivity.class);
+                MainActivity.this.startActivity(intenta);
+            }
+        });
 
 
         //-------------------手游助手 获取VT接口------------------------------------------------------------------------

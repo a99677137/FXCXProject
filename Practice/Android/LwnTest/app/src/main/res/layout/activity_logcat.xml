@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ShowLogCat Message"
+        android:textSize="25dip"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/StartThread"
+            android:textAllCaps="false"
+            android:text="@string/LogCat_StartThread"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/CreateLog"
+            android:textAllCaps="false"
+            android:text="@string/LogCat_CreateLog"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/LogCat_msg"
+            android:textColor="@android:color/holo_red_light"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/MsgContent"
+            android:lineSpacingExtra="2dp"
+            android:scrollbars="vertical"
+            android:ellipsize="none"
+            android:maxLines="20"
+            android:scrollHorizontally="false"
+            android:singleLine="false"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -18,5 +18,10 @@
     <string name = "CallFlatbuffers">CallFlatbuffers</string>
     <string name="CallHardInfo">CallHardInfo</string>
     <string name="HardInfoActivity">HardInfoActivity</string>
+    <string name ="CallLogcat">CallLogcat</string>
 
+    <string name = "LogCatActivity">LogCatActivity</string>
+    <string name="LogCat_StartThread">StartThread</string>
+    <string name="LogCat_msg">LogCat Message:</string>
+    <string name="LogCat_CreateLog">CreateLog</string>
 </resources>

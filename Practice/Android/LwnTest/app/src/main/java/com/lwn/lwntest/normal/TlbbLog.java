@@ -5,7 +5,11 @@ public class TlbbLog {
 	private static boolean _isOpenLog = true;
 	private static boolean _isOpenErrorLog = true;
 	private static String Tag = "LwnTest";
-	
+
+	public static String getTag(){
+		return Tag;
+	}
+
 	public static void SetDebug(boolean isDebug){
 		_isOpenLog = isDebug;
 		Log.d(Tag,"----------------------TlbbDebug = " + _isOpenLog);
