@@ -2,6 +2,7 @@ package com.lwn.lwntest.normal;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.method.ScrollingMovementMethod;
@@ -13,7 +14,14 @@ import com.lwn.lwntest.MainActivity;
 import com.lwn.lwntest.R;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by liweina on 2018/10/17.
@@ -27,6 +35,9 @@ public class LogCatActivity extends Activity implements  Runnable {
     private boolean threadIsStart = false;
     StringBuilder stringB = null;
     int num = 0;
+    File logFile = null;
+    FileWriter fileWriter = null;
+    String logFilePath = "";
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -76,12 +87,34 @@ public class LogCatActivity extends Activity implements  Runnable {
 
         mTimeHandler.sendEmptyMessageDelayed(0, 1000);
 
+        logFilePath = getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+        try {
+            logFile = new File(logFilePath+"/AndroidLog-"+ sdf.format(date)+".txt");
+            TlbbLog.d("LogFilepath = " + logFile.getPath());
+            if(!logFile.exists()){
+                logFile.createNewFile();
+            }
+            fileWriter = new FileWriter(logFile,true);
+            fileWriter.write("AndroidLogCreateFile:" +sdf.format(date) +"\n");
+            fileWriter.flush();
+        }catch (Exception e){
+            TlbbLog.d("LogCatActivity:onCreate Exception: " + e.toString());
+        }
+
     }
 
-    Handler mTimeHandler = new Handler() {
+    Handler mTimeHandler = new Handler(Looper.getMainLooper()) {
         public void handleMessage(android.os.Message message) {
             if (message.what == 0) {
-                msg.append (stringB.toString()); //View.ininvalidate()
+                try {
+                    msg.append (stringB.toString()); //View.ininvalidate()
+                    fileWriter.write(stringB.toString());
+                    fileWriter.flush();
+                }catch(Exception e){
+                    TlbbLog.d("LogCatActivity:handleMessage Exception: " + e.toString());
+                }
                 sendEmptyMessageDelayed(0, 1000);
                 stringB.delete(0,stringB.length());
             }
@@ -100,12 +133,26 @@ public class LogCatActivity extends Activity implements  Runnable {
 
             String line = "";
             while((line = reader.readLine()) != null){
-//                if(line.contains("Lwn")){
-//                    TlbbLog.d(line);
                     stringB.append("\n"+line );
-//                }
             }
         }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        try {
+            reader.close();
+            stringB.setLength(0);
+            stringB = null;
+            reader = null;
+            mTimeHandler.removeMessages(0);
+            mTimeHandler = null;
+            fileWriter.close();
+            fileWriter = null;
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

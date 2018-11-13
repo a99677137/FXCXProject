@@ -24,4 +24,5 @@
     <string name="LogCat_StartThread">StartThread</string>
     <string name="LogCat_msg">LogCat Message:</string>
     <string name="LogCat_CreateLog">CreateLog</string>
+    <string name="ChangeIcon">ChangeIcon</string>
 </resources>

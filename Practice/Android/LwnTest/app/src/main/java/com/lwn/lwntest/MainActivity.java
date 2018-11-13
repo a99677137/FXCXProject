@@ -2,6 +2,7 @@ package com.lwn.lwntest;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,6 +25,7 @@ import com.lwn.lwntest.normal.AndroidEmulatorManager;
 import com.lwn.lwntest.normal.HardInfoActivity;
 import com.lwn.lwntest.normal.LogCatActivity;
 import com.lwn.lwntest.normal.LwnTestUtil;
+import com.lwn.lwntest.normal.NotificationService;
 import com.lwn.lwntest.normal.PropertyUtils;
 import com.lwn.lwntest.normal.ScreenShotHelper;
 import com.lwn.lwntest.normal.TlbbLog;
@@ -49,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static TextView msgTextView ;
 
+    ComponentName newIconComponentName = null;
+    ComponentName defaultComponentName = null;
+
+    PackageManager packageManager = null;
+
     public static int ProcessId = -1;
 
     @Override
@@ -70,7 +77,31 @@ public class MainActivity extends AppCompatActivity {
         TlbbLog.d("----------onCreate---------------");
         //ShowSysDialog("Test","LWNTest!!!","OK","Cancel");
 
+        StartNotificationServices();//启动推送services
+
         TextView statuTxt =  (TextView)this.findViewById(R.id.prop);
+
+        //-----------------------------------------------动态换Icon begin--------------------------------------------------------------
+        packageManager = this.getApplicationContext().getPackageManager();
+
+        TlbbLog.d("----------------OnCreate----Current packeagename = " + this.getPackageName());
+        String packageName = this.getPackageName();
+
+        defaultComponentName = this.getComponentName();
+        newIconComponentName = new ComponentName(this.getBaseContext(),packageName+".ChangeIcon");
+
+        //disableComponent(newIconComponentName);
+
+
+        Button changeIcon = (Button)this.findViewById(R.id.ChangeIcon);
+        changeIcon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                disableComponent(defaultComponentName);
+                enableComponent(newIconComponentName);
+            }
+        });
+        //-----------------------------------------------动态换Icon end-----------------------------------------------------------
 
         Button callLogcat = (Button)this.findViewById(R.id.CallLogcat);
         callLogcat.setOnClickListener(new View.OnClickListener() {
@@ -297,6 +328,29 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+    //-------------------------动态换icon begin---------------------------------------------------
+
+    private void enableComponent(ComponentName componentName) {
+        if(packageManager == null || componentName == null){
+            return;
+        }
+        packageManager.setComponentEnabledSetting(componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+    }
+
+    private void disableComponent(ComponentName componentName) {
+        if(packageManager == null || componentName == null){
+            return;
+        }
+        packageManager.setComponentEnabledSetting(componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
+    }
+//-------------------------动态换icon end---------------------------------------------------
+
 
 
     public boolean CheckIntentIsExist(Intent intent){
@@ -617,8 +671,58 @@ public class MainActivity extends AppCompatActivity {
 
     //------------------------------------------------暗屏幕 CurActivity end-----------------------------------------------------
 
-    //------------------------------------------------自动拉起安装 ----------------------------------------
     //-----------------------------------------------暗屏幕 end-----------------------------------------------------
+
+
+
+
+    //------------------------------------------推送 begin---------------------------------------------------------
+    public static int StartNotificationServices(){
+        TlbbLog.d("----------------NativeManager:StartNotificationServices-----------------");
+        if(MainActivity.CurActivity == null){
+            TlbbLog.e("ERROR!!!-------------NativeManager:StartNotificationServices-----------------MainActivity.CurActivity = null!");
+            return 0;
+        }
+        Intent serviceIntent = new Intent(MainActivity.CurActivity,NotificationService.class);
+        MainActivity.CurActivity.startService(serviceIntent);
+        TlbbLog.d("----------------NativeManager:StartNotificationServices-----------------");
+        return 1;
+    }
+
+    /**
+     * 供Unity调用~添加新的推送信息
+     * @param paramJson
+     */
+    public void ShowNotification(String paramJson){
+        TlbbLog.d("----------------NativeManager:ShowNotification-----------------");
+        NotificationService.showNotification(paramJson);
+    }
+
+    /**
+     * 供Unity调用~在进入游戏时清空推送信息
+     * @param paramJson
+     */
+    public void CleanNotification(String paramJson){
+        TlbbLog.d("----------------NativeManager:CleanNotification-----------------");
+        NotificationService.cleanAll();
+    }
+    //------------------------------------------推送 end---------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //------------------------------------------------自动拉起安装----------------------------------------
     //by weina ~这个并没有设置成功~
