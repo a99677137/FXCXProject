@@ -71,7 +71,8 @@ class FlatCompiler {
 
   explicit FlatCompiler(const InitParams &params) : params_(params) {}
 
-  int Compile(int argc, const char **argv);
+  //int Compile(int argc, const char **argv);
+  int Compile(int argc, char **argv);
 
   std::string GetUsageString(const char *program_name) const;
 

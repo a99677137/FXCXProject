@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 
-#include "flatbuffers/flatc.h"
-
 #define LwnDebug
+#define Lwn
+
+#include "flatbuffers/flatc.h"
+#include <iostream>
+#include <io.h>
+#include <string>
+#include <vector>
+
 
 
 static const char *g_program_name = nullptr;
@@ -36,13 +42,9 @@ static void Error(const flatbuffers::FlatCompiler *flatc,
   exit(1);
 }
 
-int main(int argc, const char *arg[]) {
 
-#ifdef LwnDebug
-	argc = 4;
-	const char *argv[4] = { "-n","-b","UIResTable.fbs","UIResTable.json" };
-#endif // LwnDebug
-
+//int main(int argc, const char *arg[]) {
+int main_origin(int argc,  char **argv) {
 
   g_program_name = argv[0];
 
@@ -93,5 +95,118 @@ int main(int argc, const char *arg[]) {
   params.error_fn = Error;
 
   flatbuffers::FlatCompiler flatc(params);
-  return flatc.Compile(argc - 1, argv + 1);
+  //return flatc.Compile(argc - 1, argv + 1);
+  return flatc.Compile(argc, argv);
 }
+
+
+
+#ifdef Lwn
+
+void getFiles(std::string path, std::vector<std::string>& files)
+{
+	//文件句柄  
+	long   hFile = 0;
+	//文件信息
+	struct _finddata_t fileinfo;
+	std::string p;
+	if ((hFile = _findfirst(p.assign(path).append("\\*").c_str(), &fileinfo)) != -1)
+	{
+		do
+		{
+			//如果是目录,迭代之  
+			//如果不是,加入列表  
+			if ((fileinfo.attrib &  _A_SUBDIR))
+			{
+				if (strcmp(fileinfo.name, ".") != 0 && strcmp(fileinfo.name, "..") != 0)
+					getFiles(p.assign(path).append("\\").append(fileinfo.name), files);
+			}
+			else
+			{
+				files.push_back(p.assign(path).append("\\").append(fileinfo.name));
+			}
+		} while (_findnext(hFile, &fileinfo) == 0);
+		_findclose(hFile);
+	}
+}
+
+
+
+int main(int argc, const char *argv[]) {
+
+	argc = 5;
+	const char* test[5] = { "-n","-o",
+		"C:\\Work\\TLBB_Main_U5\\Client\\FlatBufferOutputResult\\Generated\\GeneratedAllTable\\Lwn",
+		"C:\\Work\\TLBB_Main_U5\\Client\\FlatBufferOutputResult\\Generated\\GeneratedAllTable\\OriginalFbs" ,
+		"C:\\Work\\TLBB_Main_U5\\Client\\FlatBufferOutputResult\\Generated\\GeneratedAllTable\\OriginalJson" };
+	argv = test;
+
+#ifdef LwnDebug
+	for (int argi = 0; argi < argc; argi++) {
+		std::string arg = argv[argi];
+		printf(" %s\n", arg.c_str());
+	}
+#endif
+
+	std::vector<std::string> jsonFileNames;
+	std::vector<std::string> fbsFileNames;
+	std::map<std::string, std::string> fbsDirMap;
+	for (int argi = 0; argi < argc; argi++) {
+		std::string arg = argv[argi];
+		if (arg[0] == '-') {
+		}
+		else {
+			std::vector<std::string> files;
+			getFiles(arg, files);
+			int len = strlen(argv[argi]);
+			if (files.size() > 0) {
+				int len = strlen(argv[argi]);
+				if (files.size() > 0)
+				{
+					for (size_t i = 0; i < files.size(); ++i)
+					{
+						std::string extName = flatbuffers::GetExtension(files[i]);
+						if (extName == "fbs")
+						{
+							fbsFileNames.push_back(files[i]);
+							fbsDirMap.insert(std::pair<std::string, std::string>(files[i], files[i].substr(len, files[i].find_last_of('\\') - len)));
+						}
+						else if (extName == "json")
+						{
+							jsonFileNames.push_back(files[i]);
+						}
+					}//for
+				}
+			}
+
+		}
+	}//for
+
+	if (fbsFileNames.size() <= 0 || jsonFileNames.size() <= 0 || fbsFileNames.size() != jsonFileNames.size()) {
+		return 0;
+	}
+	std::sort(fbsFileNames.begin(), fbsFileNames.end());
+	std::sort(jsonFileNames.begin(), jsonFileNames.end());
+	char** newArgv = new char*[5];
+	newArgv[0] = (char*)argv[0];//-n
+	newArgv[1] = (char*)argv[1];//-o
+	for (size_t i = 0; i < fbsFileNames.size(); ++i)
+	{
+		std::string path = (char*)argv[2];//根目录
+		path += fbsDirMap[fbsFileNames[i]];//目标目录
+		newArgv[2] = (char*)path.c_str();
+		newArgv[3] = (char*)fbsFileNames[i].c_str();
+		newArgv[4] = (char*)jsonFileNames[i].c_str();
+		main_origin(argc, newArgv);
+	}
+#ifdef LwnDebug
+	printf("I am finish!");
+	int a;
+	std::cin >> a;
+#endif // LwnDebug
+
+	return 0;
+}
+
+
+#endif

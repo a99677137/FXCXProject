@@ -15,12 +15,10 @@
  */
 
 #include "flatbuffers/flatc.h"
-
+#include "flatbuffers/lwn_debug.h"
 #include <list>
 
 #define FLATC_VERSION "1.9.0 (" __DATE__ " " __TIME__ ")"
-
-#define LwnDebug
 
 namespace flatbuffers {
 
@@ -128,7 +126,8 @@ std::string FlatCompiler::GetUsageString(const char *program_name) const {
   return ss.str();
 }
 
-int FlatCompiler::Compile(int argc, const char **argv) {
+//int FlatCompiler::Compile(int argc, const char **argv) {
+int FlatCompiler::Compile(int argc, char **argv) {
   if (params_.generators == nullptr || params_.num_generators == 0) {
     return 0;
   }
@@ -148,13 +147,6 @@ int FlatCompiler::Compile(int argc, const char **argv) {
   std::vector<bool> generator_enabled(params_.num_generators, false);
   size_t binary_files_from = std::numeric_limits<size_t>::max();
   std::string conform_to_schema;
-
-#ifdef LwnDebug
-  for (int argi = 0; argi < argc; argi++) {
-	  std::string arg = argv[argi];
-	  printf("lwn_test:idx = %i value = %s\n", argi,arg.c_str());
-  }
-#endif
 
   for (int argi = 0; argi < argc; argi++) {
     std::string arg = argv[argi];
@@ -285,23 +277,12 @@ int FlatCompiler::Compile(int argc, const char **argv) {
       found:;
       }
     } else {
-      filenames.push_back(flatbuffers::PosixPath(argv[argi]));
-#ifdef LwnDebug
-	  printf("lwn_test:player enter filenames:%s\n", argv[argi]);
-	  printf("lwn_test:filenames push_back:%s\n", filenames.back().c_str());
-#endif
 
+      filenames.push_back(flatbuffers::PosixPath(argv[argi]));
     }
   }
 
   if (!filenames.size()) Error("missing input files", false, true);
-
-#ifdef LwnDebug
-  for (unsigned int lwni = 0; lwni < filenames.size(); lwni++) {
-	  std::string lwnfilenames = filenames[lwni];
-	  printf("lwn_test:filename = %s\n", lwnfilenames.c_str());
-  }
-#endif
 
   if (opts.proto_mode) {
     if (any_generator)
@@ -324,6 +305,12 @@ int FlatCompiler::Compile(int argc, const char **argv) {
   for (auto file_it = filenames.begin(); file_it != filenames.end();
        ++file_it) {
     auto &filename = *file_it;
+
+#ifdef LwnDebug
+	printf("Start Generate:%s\n", filename.c_str());
+#endif // LwnDebug
+
+
     std::string contents;
     if (!flatbuffers::LoadFile(filename.c_str(), true, &contents))
       Error("unable to load file: " + filename);

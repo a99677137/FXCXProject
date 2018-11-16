@@ -170,6 +170,7 @@
     <ClInclude Include="include\flatbuffers\registry.h" />
     <ClInclude Include="include\flatbuffers\stl_emulation.h" />
     <ClInclude Include="include\flatbuffers\util.h" />
+    <ClInclude Include="lwn_debug.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="grpc\src\compiler\cpp_generator.cc" />
