@@ -134,6 +134,7 @@ void getFiles(std::string path, std::vector<std::string>& files)
 
 int main(int argc, const char *argv[]) {
 
+#ifdef LwnDebug
 	argc = 5;
 	const char* test[5] = { "-n","-o",
 		"C:\\Work\\TLBB_Main_U5\\Client\\FlatBufferOutputResult\\Generated\\GeneratedAllTable\\Lwn",
@@ -141,7 +142,6 @@ int main(int argc, const char *argv[]) {
 		"C:\\Work\\TLBB_Main_U5\\Client\\FlatBufferOutputResult\\Generated\\GeneratedAllTable\\OriginalJson" };
 	argv = test;
 
-#ifdef LwnDebug
 	for (int argi = 0; argi < argc; argi++) {
 		std::string arg = argv[argi];
 		printf(" %s\n", arg.c_str());
