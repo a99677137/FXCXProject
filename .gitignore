@@ -3,3 +3,4 @@ FXCX/Temp
 *.sln
 FXCX/.vs
 package/
+.DS_Store
