@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
         //disableComponent(newIconComponentName);
 
-
         Button changeIcon = (Button)this.findViewById(R.id.ChangeIcon);
         changeIcon.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -101,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 enableComponent(newIconComponentName);
             }
         });
+        //by weina 2018-11-15 17:46:51 切换Icon系统会杀掉当前进程，并且还会上报bugly,目前的解决方案是防止bugly上报，在切换Icon完成后，帮系统调用Activity.finish()...
         //-----------------------------------------------动态换Icon end-----------------------------------------------------------
 
         Button callLogcat = (Button)this.findViewById(R.id.CallLogcat);
@@ -338,7 +338,9 @@ public class MainActivity extends AppCompatActivity {
         }
         packageManager.setComponentEnabledSetting(componentName,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
+                PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+        //PackageManager.COMPONENT_ENABLED_STATE_DEFAULT会立即刷新Icon
+        //PackageManager.DONT_KILL_APP 会等系统自动刷新
     }
 
     private void disableComponent(ComponentName componentName) {
