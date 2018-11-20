@@ -166,13 +166,13 @@
     <ClInclude Include="include\flatbuffers\grpc.h" />
     <ClInclude Include="include\flatbuffers\hash.h" />
     <ClInclude Include="include\flatbuffers\idl.h" />
+    <ClInclude Include="include\flatbuffers\lwn_debug.h" />
     <ClInclude Include="include\flatbuffers\minireflect.h" />
     <ClInclude Include="include\flatbuffers\reflection.h" />
     <ClInclude Include="include\flatbuffers\reflection_generated.h" />
     <ClInclude Include="include\flatbuffers\registry.h" />
     <ClInclude Include="include\flatbuffers\stl_emulation.h" />
     <ClInclude Include="include\flatbuffers\util.h" />
-    <ClInclude Include="lwn_debug.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="grpc\src\compiler\cpp_generator.cc" />

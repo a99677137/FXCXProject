@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-#define LwnDebug
-#define Lwn
 
 #include "flatbuffers/flatc.h"
 #include <iostream>
 #include <io.h>
 #include <string>
 #include <vector>
+#include "flatbuffers/lwn_debug.h"
 
 
 
@@ -95,8 +94,7 @@ int main_origin(int argc,  char **argv) {
   params.error_fn = Error;
 
   flatbuffers::FlatCompiler flatc(params);
-  //return flatc.Compile(argc - 1, argv + 1);
-  return flatc.Compile(argc, argv);
+  return flatc.Compile(argc - 1, argv + 1);
 }
 
 
@@ -135,12 +133,12 @@ void getFiles(std::string path, std::vector<std::string>& files)
 int main(int argc, const char *argv[]) {
 
 #ifdef LwnDebug
-	argc = 5;
-	const char* test[5] = { "-n","-o",
-		"C:\\Work\\TLBB_Main_U5\\Client\\FlatBufferOutputResult\\Generated\\GeneratedAllTable\\Lwn",
-		"C:\\Work\\TLBB_Main_U5\\Client\\FlatBufferOutputResult\\Generated\\GeneratedAllTable\\OriginalFbs" ,
-		"C:\\Work\\TLBB_Main_U5\\Client\\FlatBufferOutputResult\\Generated\\GeneratedAllTable\\OriginalJson" };
-	argv = test;
+	/*argc = 6;
+	const char* test[6] = {"flatc.exe". "-n","-o",
+		"E:\\FXCX\\FXCX\\FB_Output\\CS",
+		"E:\\FXCX\\FXCX\\FB_Output\\fbs" ,
+		"E:\\FXCX\\FXCX\\FB_Output\\json" };
+	argv = test;*/
 
 	for (int argi = 0; argi < argc; argi++) {
 		std::string arg = argv[argi];
@@ -187,22 +185,23 @@ int main(int argc, const char *argv[]) {
 	}
 	std::sort(fbsFileNames.begin(), fbsFileNames.end());
 	std::sort(jsonFileNames.begin(), jsonFileNames.end());
-	char** newArgv = new char*[5];
-	newArgv[0] = (char*)argv[0];//-n
-	newArgv[1] = (char*)argv[1];//-o
+	char** newArgv = new char*[6];
+	newArgv[0] = (char*)argv[0];//flatc
+	newArgv[1] = (char*)argv[1];//-n
+	newArgv[2] = (char*)argv[2];//-o
 	for (size_t i = 0; i < fbsFileNames.size(); ++i)
 	{
-		std::string path = (char*)argv[2];//根目录
+		std::string path = (char*)argv[3];//根目录
 		path += fbsDirMap[fbsFileNames[i]];//目标目录
-		newArgv[2] = (char*)path.c_str();
-		newArgv[3] = (char*)fbsFileNames[i].c_str();
-		newArgv[4] = (char*)jsonFileNames[i].c_str();
+		newArgv[3] = (char*)path.c_str();
+		newArgv[4] = (char*)fbsFileNames[i].c_str();
+		newArgv[5] = (char*)jsonFileNames[i].c_str();
 		main_origin(argc, newArgv);
 	}
 #ifdef LwnDebug
-	printf("I am finish!");
+	/*printf("I am finish!");
 	int a;
-	std::cin >> a;
+	std::cin >> a;*/
 #endif // LwnDebug
 
 	return 0;
