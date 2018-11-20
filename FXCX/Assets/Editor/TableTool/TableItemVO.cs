@@ -20,8 +20,15 @@ public class TableItemVO
     private string absolutePath = "";
     public string AbsolutePath
     {
+        set { absolutePath = value; }
         get { return absolutePath; }
     }
+
+    private string relativePath = "";
+    public string RelativePath {
+        get { return relativePath; }
+    }
+
     private bool isCSharpTable = false;
     public bool IsCSharpTable
     {
@@ -48,11 +55,11 @@ public class TableItemVO
         get { return nameSpace; }
     }
 
-    public TableItemVO(int _id,string _name,string _path,string _absolutPath, string _nameSpace, bool _isLua, bool _isCsharp, bool _isSplit, bool _isImmediately) {
+    public TableItemVO(int _id,string _name,string _path,string _relativePath, string _nameSpace, bool _isLua, bool _isCsharp, bool _isSplit, bool _isImmediately) {
         id = _id;
         name = _name;
         path = _path;
-        absolutePath = _absolutPath;
+        relativePath = _relativePath;
         isCSharpTable = _isCsharp;
         isLuaTable = _isLua;
         isSplit = _isSplit;

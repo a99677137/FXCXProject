@@ -22,10 +22,11 @@ public class TableToolManager  {
 
     public string TableConfigPath = TableToolManager.BasePath + "/../../TableRes/";
 
-    public string FBOutputPath = TableToolManager.BasePath + "/../FB_Output/";
+    public static string FBOutputPath = TableToolManager.BasePath + "/../FB_Output";
 
-    public string FbsPath = TableToolManager.BasePath + "/../FB_Output/fbs/";
-    public string JsonPath = TableToolManager.BasePath + "/../FB_Output/json/";
+    public string Ready2ChangeTablesPath = FBOutputPath + "/Ready2ChangeTables/";
+    public string FbsPath = FBOutputPath +"/fbs/";
+    public string JsonPath = FBOutputPath+"/json/";
 
     public string PrintMsg = "";
 
@@ -64,11 +65,13 @@ public class TableToolManager  {
     private int tabelTotalCount = 0;
 
     public void GO() {
+
+
         PrepareTables();
 
         GenerateFbsAndJsonList();
-        
 
+        GenerateBin();
 
 
     }
@@ -80,6 +83,7 @@ public class TableToolManager  {
         }
         string path = TablePath + tableConfig;
         Debug.Log("TableConfig:" + path);
+
         GetTableConfig(path);
         perpare2TableData();
     }
@@ -122,33 +126,45 @@ public class TableToolManager  {
             Debug.LogError("Error! TableToolManager:perpare2TableData--->TableConfig Read Faile!");
             return;
         }
+        if (Directory.Exists(Ready2ChangeTablesPath))
+        {
+            Directory.Delete(Ready2ChangeTablesPath, true);
+        }
+        Directory.CreateDirectory(Ready2ChangeTablesPath);
 
-        TableItemVO tabConfig = new TableItemVO(0, "TableConfig", "", TableConfigPath+ "/TableConfig", "None", false, true, false, true);
-        TableList.Add(0, tabConfig);
+        //TableItemVO tabConfig = new TableItemVO(0, "TableConfig", "","/TableConfig", "None", false, true, false, true);
+        //TableList.Add(0, tabConfig);
         for (int i = 0; i<tableConfigLineData.Count; i++) {
             string line = tableConfigLineData[i];
             string[] linedata = line.Split(new string[1] { "\t" }, System.StringSplitOptions.None);
-            var item  = makeTableItem(linedata);
-            if(item != null){
-                Print("prepare " + i +"/" + tabelTotalCount +"  name = " + item.Name);
-            }
+            TableItemVO item = new TableItemVO(int.Parse(linedata[0]), linedata[2], linedata[3],
+             linedata[3], linedata[4], bool.Parse(linedata[5]), bool.Parse(linedata[6]),
+            bool.Parse(linedata[7]), bool.Parse(linedata[8]));
+            var path = TablePath + item.RelativePath + ".txt";
+            var finalPath = Ready2ChangeTablesPath + item.RelativePath + ".txt";
+            var outpath = Path.GetDirectoryName(finalPath);
+            Directory.CreateDirectory(outpath);
+            File.Copy(path, finalPath, true);
+            item.AbsolutePath = finalPath;
+            TableList.Add(int.Parse(linedata[0]), item);
+            Print("prepare " + i + "/" + tabelTotalCount + "  name = " + item.Name);
         }
+
     }
 
 
-    private TableItemVO makeTableItem(string[] linedata) {
-        if (linedata == null || linedata.Length <= 0)
-        {
-            Debug.LogError("Error! TableToolManager:makeTableItem--->MakeTableItem Faile!");
-            return null;
-        }
+    //private TableItemVO makeTableItem(string[] linedata) {
+    //    if (linedata == null || linedata.Length <= 0)
+    //    {
+    //        Debug.LogError("Error! TableToolManager:makeTableItem--->MakeTableItem Faile!");
+    //        return null;
+    //    }
+        //TableItemVO item = new TableItemVO(int.Parse(linedata[0]), linedata[2], linedata[3],
+        //        linedata[3], linedata[4], bool.Parse(linedata[5]), bool.Parse(linedata[6]),
+        //    bool.Parse(linedata[7]), bool.Parse(linedata[8]));
 
-        TableItemVO item = new TableItemVO(int.Parse(linedata[0]), linedata[2], linedata[3], 
-            TablePath + linedata[3], linedata[4], bool.Parse(linedata[5]), bool.Parse(linedata[6]),
-            bool.Parse(linedata[7]),bool.Parse(linedata[8]));
-        TableList.Add(int.Parse(linedata[0]), item);
-        return item;
-    }
+    //    return item;
+    //}
 
     private void GenerateFbsAndJsonList()
     {
@@ -170,9 +186,9 @@ public class TableToolManager  {
             Debug.Log(" TableToolManager:GenerateFbsList--->table:" + item.Name);
             ReadTableData(item);
 
-            GenerateJson(item.Name);
+            GenerateJson(item);
 
-            GenerateFbs(item.NameSpace, item.Name);
+            GenerateFbs(item);
         }
 
     }
@@ -183,7 +199,7 @@ public class TableToolManager  {
             Debug.LogError("ERROR! TableToolManager:ReadTableData--->TableItemVO is null");
             return false;
         }
-        string path = item.AbsolutePath + ".txt";
+        string path = item.AbsolutePath;
         string content = FileHelper.GetTxtFileContent(path);
         if (content == null)
         {
@@ -197,7 +213,7 @@ public class TableToolManager  {
         return true;
     }
 
-    private void GenerateJson(string tablename) {
+    private void GenerateJson(TableItemVO item) {
         if (columnNames == null || columnNames.Count <= 0 || typeNames == null || typeNames.Count <= 0 || dataValues == null || dataValues.Count <= 0)
         {
             Debug.LogError("ERROR! TableToolManager:GenerateJson--->typeName or columnNames or dataValues is null!");
@@ -226,12 +242,12 @@ public class TableToolManager  {
         //string json = string.Format(jsonModle, data.ToString());
         string json = jsonModle.Replace("{0}", data.ToString());
         //Debug.Log("<color=#54b123>" + json + "</color>");
-        string fullPath = JsonPath + tablename + ".json";
+        string fullPath = JsonPath + item.RelativePath + ".json";
         FileHelper.CreateFile(fullPath, json);
     }
 
 
-    private void GenerateFbs(string namespaceStr,string tablename) {
+    private void GenerateFbs(TableItemVO item) {
         if (columnNames == null || columnNames.Count <= 0 || typeNames == null || typeNames.Count <= 0) {
             Debug.LogError("ERROR! TableToolManager:GenerateFbs--->typeName or columnNames is null!");
             return;
@@ -243,12 +259,19 @@ public class TableToolManager  {
         }
 
         //var fbs = string.Format(fbsModle, namespaceStr, tablename, data.ToString());
-        string fbs = fbsModle.Replace("{0}", namespaceStr).Replace("{1}", tablename).Replace("{2}", data.ToString());
+        string fbs = fbsModle.Replace("{0}", item.NameSpace).Replace("{1}", item.Name).Replace("{2}", data.ToString());
         //Debug.Log("<color=#54b123>"+fbs+"</color>");
 
-        string fullPath = FbsPath + tablename + ".fbs";
+        string fullPath = FbsPath + item.RelativePath + ".fbs";
         FileHelper.CreateFile(fullPath, fbs);
     }
+
+
+    private void GenerateBin() {
+
+    }
+
+
 
 
     private void DeleteNoMeanLines(string data) {
