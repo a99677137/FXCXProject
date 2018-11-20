@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lwn.lwntest">
 
-    <uses-sdk
+    <!--uses-sdk
         android:minSdkVersion="18"
-        android:targetSdkVersion="27" />
+        android:targetSdkVersion="27" / -->
 
 
     <!--查询当前手机是否是模拟器AndroidEmulatorManager begin -->
