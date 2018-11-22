@@ -6,7 +6,9 @@ using UnityEngine;
 using System.Text;
 using Game.Lwn.Base;
 using UnityEditor;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 class TableConfigItem {
     
@@ -20,23 +22,29 @@ public class TableToolManager  {
 
     public static string BasePath = Application.dataPath;
 
-    public string TableConfigPath = TableToolManager.BasePath + "/../../TableRes/";
+    public string TableConfigPath = TableToolManager.BasePath + "/../../TableRes";
 
-    public static string FBOutputPath = TableToolManager.BasePath + "/../FB_Output";
+    private static string FBOutputPath = TableToolManager.BasePath + "/../FB_Output";
 
-    public string Ready2ChangeTablesPath = FBOutputPath + "/Ready2ChangeTables/";
-    public string FbsPath = FBOutputPath +"/fbs/";
-    public string JsonPath = FBOutputPath+"/json/";
+    private static string FinallyPath = TableToolManager.BasePath + "/../GameAssets/Table";
+
+    private string Ready2ChangeTablesPath = FBOutputPath + "/Ready2ChangeTables";
+
+    private string FbsPath = FBOutputPath +"/fbs";
+
+    private string JsonPath = FBOutputPath+"/json";
 
     public string PrintMsg = "";
 
     public string TablePath = "";
 
-    private string tableConfig = "TableConfig.txt";
+    private string tableConfig = "/TableConfig.txt";
 
-    public Dictionary<int, TableItemVO> TableList = new Dictionary<int, TableItemVO>();
+    private string ProcessName = "/GenerateAllTable.bat";
 
-    public Dictionary<int, FileInfo> TableFileList = new Dictionary<int, FileInfo>();
+    private Dictionary<int, TableItemVO> CSTableList = new Dictionary<int, TableItemVO>();
+
+    private Dictionary<int, FileInfo> TableFileList = new Dictionary<int, FileInfo>();
 
     private List<string> tableConfigLineData = new List<string>(); 
 
@@ -61,17 +69,31 @@ public class TableToolManager  {
         ]
     }";
 
+    private Process proc = null;
 
     private int tabelTotalCount = 0;
 
-    public void GO() {
+    private Thread _generateBinThread = null;
 
+    private static bool _isAllFinish = false;
+
+    public void GO() {
+        _isAllFinish = false;
+
+        _generateBinThread = new Thread(new ParameterizedThreadStart(GenerateBin));
 
         PrepareTables();
 
         GenerateFbsAndJsonList();
 
-        GenerateBin();
+        _generateBinThread.Start();
+
+    }
+
+    public void Tick() {
+        if (_isAllFinish) {
+            CopyToAccess();
+        }
 
 
     }
@@ -82,7 +104,7 @@ public class TableToolManager  {
             return;
         }
         string path = TablePath + tableConfig;
-        Debug.Log("TableConfig:" + path);
+        UnityEngine.Debug.Log("TableConfig:" + path);
 
         GetTableConfig(path);
         perpare2TableData();
@@ -94,9 +116,9 @@ public class TableToolManager  {
         string line1 = sr.ReadLine();
         string line2 = sr.ReadLine();
         string line3 = sr.ReadLine();
-        Debug.Log("<color=#ff5642>line1 = " + line1 + "</color>");
-        Debug.Log("<color=#ff5642>line2 = " + line2 + "</color>");
-        Debug.Log("<color=#ff5642>line3 = " + line3 + "</color>");
+        UnityEngine.Debug.Log("<color=#ff5642>line1 = " + line1 + "</color>");
+        UnityEngine.Debug.Log("<color=#ff5642>line2 = " + line2 + "</color>");
+        UnityEngine.Debug.Log("<color=#ff5642>line3 = " + line3 + "</color>");
 
         //string [] nameArr = line3.Split('\t');
         //string [] typeArr = line1.Split('\t');
@@ -123,7 +145,7 @@ public class TableToolManager  {
 
     private void perpare2TableData() {
         if (tableConfigLineData == null || tableConfigLineData.Count <= 0) {
-            Debug.LogError("Error! TableToolManager:perpare2TableData--->TableConfig Read Faile!");
+            UnityEngine.Debug.LogError("Error! TableToolManager:perpare2TableData--->TableConfig Read Faile!");
             return;
         }
         if (Directory.Exists(Ready2ChangeTablesPath))
@@ -138,15 +160,18 @@ public class TableToolManager  {
             string line = tableConfigLineData[i];
             string[] linedata = line.Split(new string[1] { "\t" }, System.StringSplitOptions.None);
             TableItemVO item = new TableItemVO(int.Parse(linedata[0]), linedata[2], linedata[3],
-             linedata[3], linedata[4], bool.Parse(linedata[5]), bool.Parse(linedata[6]),
+              linedata[4], bool.Parse(linedata[5]), bool.Parse(linedata[6]),
             bool.Parse(linedata[7]), bool.Parse(linedata[8]));
+            if (!item.IsCSharpTable) {
+                continue;
+            }
             var path = TablePath + item.RelativePath + ".txt";
             var finalPath = Ready2ChangeTablesPath + item.RelativePath + ".txt";
             var outpath = Path.GetDirectoryName(finalPath);
             Directory.CreateDirectory(outpath);
             File.Copy(path, finalPath, true);
             item.AbsolutePath = finalPath;
-            TableList.Add(int.Parse(linedata[0]), item);
+            CSTableList.Add(int.Parse(linedata[0]), item);
             Print("prepare " + i + "/" + tabelTotalCount + "  name = " + item.Name);
         }
 
@@ -178,12 +203,12 @@ public class TableToolManager  {
             Directory.Delete(JsonPath, true);
         }
         Directory.CreateDirectory(JsonPath);
-        if (TableList == null || TableList.Count <= 0 ) {
-            Debug.LogError("ERROR! TableToolManager:GenerateFbsList--->TableList is null!");
+        if (CSTableList == null || CSTableList.Count <= 0 ) {
+            UnityEngine.Debug.LogError("ERROR! TableToolManager:GenerateFbsList--->TableList is null!");
             return;
         }
-        foreach(var item in TableList.Values) {
-            Debug.Log(" TableToolManager:GenerateFbsList--->table:" + item.Name);
+        foreach(var item in CSTableList.Values) {
+            UnityEngine.Debug.Log(" TableToolManager:GenerateFbsList--->table:" + item.Name);
             ReadTableData(item);
 
             GenerateJson(item);
@@ -196,7 +221,7 @@ public class TableToolManager  {
 
     private bool ReadTableData(TableItemVO item) {
         if (item == null) {
-            Debug.LogError("ERROR! TableToolManager:ReadTableData--->TableItemVO is null");
+            UnityEngine.Debug.LogError("ERROR! TableToolManager:ReadTableData--->TableItemVO is null");
             return false;
         }
         string path = item.AbsolutePath;
@@ -209,14 +234,14 @@ public class TableToolManager  {
             }
         }
         DeleteNoMeanLines(content);
-        Debug.Log("TableToolManager:ReadTableData---> Load table " + item.Name + " Finish!");
+        UnityEngine.Debug.Log("TableToolManager:ReadTableData---> Load table " + item.Name + " Finish!");
         return true;
     }
 
     private void GenerateJson(TableItemVO item) {
         if (columnNames == null || columnNames.Count <= 0 || typeNames == null || typeNames.Count <= 0 || dataValues == null || dataValues.Count <= 0)
         {
-            Debug.LogError("ERROR! TableToolManager:GenerateJson--->typeName or columnNames or dataValues is null!");
+            UnityEngine.Debug.LogError("ERROR! TableToolManager:GenerateJson--->typeName or columnNames or dataValues is null!");
             return;
         }
         StringBuilder data = new StringBuilder();
@@ -234,7 +259,7 @@ public class TableToolManager  {
                 data.AppendLine("},");
             }
             else {
-                Debug.LogError("ERROR! TableToolManager:GenerateJson--->linedata.Length = "+ linedata.Length + ",columnNames.Count = "+ columnNames.Count);
+                UnityEngine.Debug.LogError("ERROR! TableToolManager:GenerateJson--->linedata.Length = "+ linedata.Length + ",columnNames.Count = "+ columnNames.Count);
             }
             
         }
@@ -249,7 +274,7 @@ public class TableToolManager  {
 
     private void GenerateFbs(TableItemVO item) {
         if (columnNames == null || columnNames.Count <= 0 || typeNames == null || typeNames.Count <= 0) {
-            Debug.LogError("ERROR! TableToolManager:GenerateFbs--->typeName or columnNames is null!");
+            UnityEngine.Debug.LogError("ERROR! TableToolManager:GenerateFbs--->typeName or columnNames is null!");
             return;
         }
         StringBuilder data = new StringBuilder();
@@ -267,11 +292,55 @@ public class TableToolManager  {
     }
 
 
-    private void GenerateBin() {
-
+    private void GenerateBin(object obj)
+    {
+        try {
+            string filepath = FBOutputPath + ProcessName;
+            if (!File.Exists(filepath)) {
+                UnityEngine.Debug.LogError("ERROR!!!TableToolManager:GenerateBin---.bat is not exist!path = " + filepath);
+                return;
+            }
+            //ProcessStartInfo info = new ProcessStartInfo();
+            //info.WorkingDirectory = FBOutputPath ;
+            //info.FileName = ProcessName;
+            proc = Process.Start(FBOutputPath + ProcessName);
+            proc.WaitForExit();
+            _isAllFinish = true;
+        }
+        catch (Exception e) {
+            _isAllFinish = false;
+            UnityEngine.Debug.LogError("ERROR!!!TableToolManager:GenerateBin---e:" + e.ToString());
+            //UnityEngine.Debug.LogError("ERROR!!!TableToolManager:GenerateBin---e:"+e.StackTrace);
+        }
+        finally {
+            proc.Close();
+        }
+        _generateBinThread.Abort();
+        _generateBinThread = null;
     }
 
 
+    private void CopyToAccess() {
+        if (CSTableList == null || CSTableList.Count<=0) {
+            UnityEngine.Debug.LogError("ERROR!!!------TableToolManager:CopyToAccess----TableList is null!");
+            return;
+        }
+        if (Directory.Exists(FinallyPath)){
+            Directory.Delete(FinallyPath, true);
+        }
+        Directory.CreateDirectory(FinallyPath);
+        foreach (var item in CSTableList.Values) {
+            string srcPath = FBOutputPath+"/bin/Table" + item.RelativePath + ".bin";
+            string destPath = FinallyPath + item.RelativePath + ".bin";
+            var outpath = Path.GetDirectoryName(destPath);
+            if ( !Directory.Exists(outpath)) {
+                Directory.CreateDirectory(outpath);
+            }
+            File.Copy(srcPath, destPath, true);
+        }
+        Print("导表完成！");
+        TableToolPanel.IsStart = false;
+    }
 
 
     private void DeleteNoMeanLines(string data) {
@@ -387,12 +456,18 @@ public class TableToolManager  {
     public void Destroy() {
         PrintMsg = "";
         TablePath = "";
-        TableList.Clear();
+        CSTableList.Clear();
         TableFileList.Clear();
         tableConfigLineData.Clear();
         columnNames.Clear();
         typeNames.Clear();
         dataValues.Clear();
+
+        if (_generateBinThread != null)
+        {
+            _generateBinThread.Abort();
+            _generateBinThread = null;
+        }
 
         //TableList = null;
         //TableFileList = null;

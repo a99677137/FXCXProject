@@ -4,12 +4,20 @@ using UnityEngine;
 public class TableToolPanel : EditorWindow
 {
 
+    public static bool IsStart = false;
+
     [MenuItem("TableTool/Generate Table")]
     static void Init() {
         TableToolManager.Instance.TablePath = TableToolManager.Instance.TableConfigPath;
         TableToolPanel tableTool = (TableToolPanel)EditorWindow.GetWindow(typeof(TableToolPanel));
         tableTool.minSize = new Vector2(400,800);
         tableTool.ShowPopup();
+    }
+
+    void Update() {
+        if (IsStart) {
+            TableToolManager.Instance.Tick();
+        }
     }
 
     void OnDestroy() {
@@ -38,6 +46,7 @@ public class TableToolPanel : EditorWindow
         if (GUILayout.Button("Transport",GUILayout.MaxWidth(80))) {
             print("Start to transport!");
             TableToolManager.Instance.GO();
+            IsStart = true;
         }
 
 

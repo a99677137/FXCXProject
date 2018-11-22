@@ -12,11 +12,6 @@ public class TableItemVO
     public string Name {
         get { return name; }
     }
-    private string path = "";
-    public string Path
-    {
-        get { return path; }
-    }
     private string absolutePath = "";
     public string AbsolutePath
     {
@@ -55,16 +50,15 @@ public class TableItemVO
         get { return nameSpace; }
     }
 
-    public TableItemVO(int _id,string _name,string _path,string _relativePath, string _nameSpace, bool _isLua, bool _isCsharp, bool _isSplit, bool _isImmediately) {
+    public TableItemVO(int _id,string _name,string _relativePath, string _nameSpace, bool _isLua, bool _isCsharp, bool _isSplit, bool _isImmediately) {
         id = _id;
         name = _name;
-        path = _path;
         relativePath = _relativePath;
         isCSharpTable = _isCsharp;
         isLuaTable = _isLua;
         isSplit = _isSplit;
         isImmediately = _isImmediately;
         nameSpace = _nameSpace;
-        Debug.Log("Init TableItem! path = " + path);
+        //Debug.Log("Init TableItem! path = " + _relativePath);
     }
 }

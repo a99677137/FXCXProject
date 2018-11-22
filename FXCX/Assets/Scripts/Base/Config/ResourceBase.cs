@@ -7,6 +7,14 @@ namespace Game.Lwn.Base
 {
     public class ResourceBase : Singleton<ResourceBase>
     {
+        private string GetAndroidTablePath() {
+            return "";
+        }
+
+#if UNITY_EDITOR
+        private string GetEditorTablePath() {
+            return Application.dataPath + "/../GameAssets/Table/";
+        }
 
         private string GetEditorCFGPath()
         {
@@ -18,7 +26,7 @@ namespace Game.Lwn.Base
             return Application.dataPath + "/../GameAssets/Lua/";
         }
 
-
+#endif
 
         public string LoadConfigFile(string path)
         {

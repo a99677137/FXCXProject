@@ -1,6 +1,8 @@
 @echo off
 
-del outputresult.txt
+cd FB_Output
+
+del %cd%\outputresult.txt
 
 call echo Excute On
 
