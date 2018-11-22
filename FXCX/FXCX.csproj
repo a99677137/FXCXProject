@@ -17,8 +17,7 @@
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.2.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -245,6 +244,9 @@
     <Reference Include="CusEncoding">
       <HintPath>Assets\Plugins\Lwn\CusEncoding.dll</HintPath>
     </Reference>
+    <Reference Include="FlatBuffers">
+      <HintPath>Assets\Plugins\FlatBuffers\FlatBuffers.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Base\Config\GameCFG.cs" />
@@ -255,11 +257,18 @@
     <Compile Include="Assets\Scripts\Base\Helper\EncodingType.cs" />
     <Compile Include="Assets\Scripts\Base\Helper\FileHelper.cs" />
     <Compile Include="Assets\Scripts\Base\LuaManager.cs" />
+    <Compile Include="Assets\Scripts\Base\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\Main\GameConfigManager.cs" />
     <Compile Include="Assets\Scripts\Main\GameManager.cs" />
     <Compile Include="Assets\Scripts\Main\MainProcedure.cs" />
     <Compile Include="Assets\Scripts\Main\ScenesManager.cs" />
-    <Compile Include="Assets\Scripts\Base\ResourceManager.cs" />
+    <Compile Include="Assets\Scripts\Main\TableManager.cs" />
+    <Compile Include="Assets\Scripts\Tables\Game\Table\Static\Only4TestTable.cs" />
+    <Compile Include="Assets\Scripts\Tables\Game\Table\Static\Only4TestVO.cs" />
+    <Compile Include="Assets\Scripts\Tables\Game\Table\Static\TableConfigTable.cs" />
+    <Compile Include="Assets\Scripts\Tables\Game\Table\Static\TableConfigVO.cs" />
+    <Compile Include="Assets\Scripts\Tables\Game\Table\Static\UIResTable.cs" />
+    <Compile Include="Assets\Scripts\Tables\Game\Table\Static\UIResVO.cs" />
     <Compile Include="Assets\Source\Generate\DelegateFactory.cs" />
     <Compile Include="Assets\Source\Generate\Game_Tools_CommonTools_GameLogWrap.cs" />
     <Compile Include="Assets\Source\Generate\LuaBinder.cs" />

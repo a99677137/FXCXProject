@@ -1,7 +1,8 @@
 int	string	string	string	string	bool	bool	bool	bool
 唯一Id	注释	表名	资源位置	命名空间	是否是lua表	是否是C#表	是否拆分（通常需要遍历的表不拆）	是否立即加载
 Id	#Des	Name	ResourcePath	NameSpace	IsLua	IsCSharp	IsSplit	IsImmediately
-0	tableconfig	TableConfig	TableConfig	Game.Table.Static	FALSE	TRUE	FALSE	TRUE
-1	字典表	StringDictionary	Client/ResTable/StringDictionary	None	TRUE	FALSE	TRUE	TRUE
-2	UI资源表	UIRes	Client/ResTable/UIRes	Game.Table.Static	FALSE	TRUE	TRUE	TRUE
-3	UI面板资源表	UILayer	Client/UILayer	None	TRUE	FALSE	TRUE	TRUE
+0	tableconfig	TableConfig	/TableConfig	Game.Table.Static	FALSE	TRUE	FALSE	TRUE
+1	字典表	StringDictionary	/Client/ResTable/StringDictionary	None	TRUE	FALSE	TRUE	TRUE
+2	UI资源表	UIRes	/Client/ResTable/UIRes	Game.Table.Static	FALSE	TRUE	TRUE	TRUE
+3	UI面板资源表	UILayer	/Client/UILayer	None	TRUE	FALSE	TRUE	TRUE
+4	测试表	Only4Test	/Public/Only4Test	Game.Table.Static	FALSE	TRUE	FALSE	FALSE

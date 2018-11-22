@@ -20,6 +20,9 @@ public class ResourceManager:Singleton<ResourceManager> {
         GameInitCFG.Instance.Parse(res);
     }
 
+    public void LoadTableConfig() {
+        ResourceBase.Instance.LoadTableConfig("TableConfig.bin");
+    }
 
     public UnityEngine.Object ResourceLoadUnityObj(string path) {
         return Resources.Load(path);
