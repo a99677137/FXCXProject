@@ -94,7 +94,11 @@ int main_origin(int argc,  char **argv) {
   params.error_fn = Error;
 
   flatbuffers::FlatCompiler flatc(params);
+#ifdef LwnDebug
+  return flatc.Compile(argc , argv);
+#else
   return flatc.Compile(argc - 1, argv + 1);
+#endif
 }
 
 
@@ -133,12 +137,12 @@ void getFiles(std::string path, std::vector<std::string>& files)
 int main(int argc, const char *argv[]) {
 
 #ifdef LwnDebug
-	/*argc = 6;
-	const char* test[6] = {"flatc.exe". "-n","-o",
-		"E:\\FXCX\\FXCX\\FB_Output\\CS",
+	argc = 5;
+	const char* test[5] = { "-n","-o",
+		"E:\\FXCX\\FXCX\\FB_Output\\cs",
 		"E:\\FXCX\\FXCX\\FB_Output\\fbs" ,
 		"E:\\FXCX\\FXCX\\FB_Output\\json" };
-	argv = test;*/
+	argv = test;
 
 	for (int argi = 0; argi < argc; argi++) {
 		std::string arg = argv[argi];
@@ -149,8 +153,15 @@ int main(int argc, const char *argv[]) {
 	std::vector<std::string> jsonFileNames;
 	std::vector<std::string> fbsFileNames;
 	std::map<std::string, std::string> fbsDirMap;
+
+	int isCS = 0;
+
 	for (int argi = 0; argi < argc; argi++) {
 		std::string arg = argv[argi];
+
+		if (arg[0] == '-' && arg[1] == 'n') {
+			isCS = 1;
+		}
 		if (arg[0] == '-') {
 		}
 		else {
@@ -185,6 +196,22 @@ int main(int argc, const char *argv[]) {
 	}
 	std::sort(fbsFileNames.begin(), fbsFileNames.end());
 	std::sort(jsonFileNames.begin(), jsonFileNames.end());
+#ifdef LwnDebug
+	char** newArgv = new char*[5];
+	newArgv[0] = (char*)argv[0];//-n
+	newArgv[1] = (char*)argv[1];//-o
+	for (size_t i = 0; i < fbsFileNames.size(); ++i)
+	{
+		std::string path = (char*)argv[2];//根目录
+		if (isCS != 1) {
+			path += fbsDirMap[fbsFileNames[i]];//目标目录
+		}
+		newArgv[2] = (char*)path.c_str();
+		newArgv[3] = (char*)fbsFileNames[i].c_str();
+		newArgv[4] = (char*)jsonFileNames[i].c_str();
+		main_origin(argc, newArgv);
+	}
+#else
 	char** newArgv = new char*[6];
 	newArgv[0] = (char*)argv[0];//flatc
 	newArgv[1] = (char*)argv[1];//-n
@@ -192,17 +219,15 @@ int main(int argc, const char *argv[]) {
 	for (size_t i = 0; i < fbsFileNames.size(); ++i)
 	{
 		std::string path = (char*)argv[3];//根目录
-		path += fbsDirMap[fbsFileNames[i]];//目标目录
+		if (isCS != 1) {
+			path += fbsDirMap[fbsFileNames[i]];//目标目录
+		}
 		newArgv[3] = (char*)path.c_str();
 		newArgv[4] = (char*)fbsFileNames[i].c_str();
 		newArgv[5] = (char*)jsonFileNames[i].c_str();
 		main_origin(argc, newArgv);
 	}
-#ifdef LwnDebug
-	/*printf("I am finish!");
-	int a;
-	std::cin >> a;*/
-#endif // LwnDebug
+#endif
 
 	return 0;
 }
