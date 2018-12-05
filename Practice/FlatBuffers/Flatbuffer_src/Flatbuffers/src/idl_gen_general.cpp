@@ -1022,8 +1022,8 @@ class GeneralGenerator : public BaseGenerator {
 	  //printf("tableName = %s , tableStr = %s", tableName.c_str(), tableStr.c_str());
 	  if (lang_.language == IDLOptions::kCSharp && isDataTable && tableStr.compare("Table") == 0) {
 		  code += "\n//LWN_Modify\n";
-		  code += "public Dictionary<int, " + type_name_dest + optional +"> GetTableData() {\n";
-		  code += "Dictionary<int, " + type_name_dest + optional + "> table = new Dictionary<int, " + type_name_dest + optional + ">();\n";
+		  code += "public Dictionary<int, object> GetTableData() {\n";
+		  code += "Dictionary<int, object> table = new Dictionary<int,object>();\n";
 		  code += "for(int i=0;i<DataLength;i++){\n";
 		  code += type_name_dest + " value = (" + type_name_dest + ") Data(i);\n";
 		  code += "int Id = System.Convert.ToInt32(value.Id);\n";
