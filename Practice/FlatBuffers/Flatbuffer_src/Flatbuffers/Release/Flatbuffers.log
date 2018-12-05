@@ -1,0 +1,54 @@
+﻿生成启动时间为 2018/12/5 17:11:44。
+     1>项目“E:\FXCX\Practice\FlatBuffers\Flatbuffer_src\Flatbuffers\Flatbuffers.vcxproj”在节点 2 上(Rebuild 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /IE:\FXCX\Practice\FlatBuffers\Flatbuffer_src\Flatbuffers\src /IE:\FXCX\Practice\FlatBuffers\Flatbuffer_src\Flatbuffers\include /IE:\FXCX\Practice\FlatBuffers\Flatbuffer_src\Flatbuffers\grpc /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt grpc\src\compiler\cpp_generator.cc grpc\src\compiler\go_generator.cc grpc\src\compiler\java_generator.cc src\code_generators.cpp src\flatc.cpp src\flatc_main.cpp src\flathash.cpp src\idl_gen_cpp.cpp src\idl_gen_fbs.cpp src\idl_gen_general.cpp src\idl_gen_go.cpp src\idl_gen_grpc.cpp src\idl_gen_js.cpp src\idl_gen_json_schema.cpp src\idl_gen_php.cpp src\idl_gen_python.cpp src\idl_gen_text.cpp src\idl_parser.cpp src\reflection.cpp src\util.cpp
+         cpp_generator.cc
+         go_generator.cc
+         java_generator.cc
+         code_generators.cpp
+         flatc.cpp
+         flatc_main.cpp
+         flathash.cpp
+         idl_gen_cpp.cpp
+         idl_gen_fbs.cpp
+         idl_gen_general.cpp
+         idl_gen_go.cpp
+         idl_gen_grpc.cpp
+         idl_gen_js.cpp
+         idl_gen_json_schema.cpp
+         idl_gen_php.cpp
+         idl_gen_python.cpp
+         idl_gen_text.cpp
+         idl_parser.cpp
+         reflection.cpp
+         util.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\FXCX\Practice\FlatBuffers\Flatbuffer_src\Flatbuffers\Release\flatc.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"E:\FXCX\Practice\FlatBuffers\Flatbuffer_src\Flatbuffers\Release\flatc.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\FXCX\Practice\FlatBuffers\Flatbuffer_src\Flatbuffers\Release\flatc.lib" /MACHINE:X86 /SAFESEH Release\cpp_generator.obj
+         Release\go_generator.obj
+         Release\java_generator.obj
+         Release\code_generators.obj
+         Release\flatc.obj
+         Release\flatc_main.obj
+         Release\flathash.obj
+         Release\idl_gen_cpp.obj
+         Release\idl_gen_fbs.obj
+         Release\idl_gen_general.obj
+         Release\idl_gen_go.obj
+         Release\idl_gen_grpc.obj
+         Release\idl_gen_js.obj
+         Release\idl_gen_json_schema.obj
+         Release\idl_gen_php.obj
+         Release\idl_gen_python.obj
+         Release\idl_gen_text.obj
+         Release\idl_parser.obj
+         Release\reflection.obj
+         Release\util.obj
+         正在生成代码
+         All 7345 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+         已完成代码的生成
+         Flatbuffers.vcxproj -> E:\FXCX\Practice\FlatBuffers\Flatbuffer_src\Flatbuffers\Release\flatc.exe
+     1>已完成生成项目“E:\FXCX\Practice\FlatBuffers\Flatbuffer_src\Flatbuffers\Flatbuffers.vcxproj”(Rebuild 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:41.57
