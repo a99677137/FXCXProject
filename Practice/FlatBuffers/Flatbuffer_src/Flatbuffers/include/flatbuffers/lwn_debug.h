@@ -1,5 +1,5 @@
 #pragma once
 #ifndef lwn_debug
 //#define LwnDebug
-#define Lwn
+#define LWN_Modify
 #endif 

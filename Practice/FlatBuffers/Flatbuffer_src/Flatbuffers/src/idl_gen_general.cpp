@@ -20,6 +20,7 @@
 #include "flatbuffers/flatbuffers.h"
 #include "flatbuffers/idl.h"
 #include "flatbuffers/util.h"
+#include "flatbuffers/lwn_debug.h"
 
 #if defined(FLATBUFFERS_CPP98_STL)
 #  include <cctype>
@@ -118,7 +119,7 @@ const LanguageParameters &GetLangParams(IDLOptions::Language lang) {
         "__p.",
         "Table.",
         "?",
-        "using global::System;\nusing global::FlatBuffers;\n\n",
+        "using global::System;\nusing global::FlatBuffers;\nusing System.Collections.Generic;\n\n",
         "",
         {
             nullptr,
@@ -171,7 +172,12 @@ class GeneralGenerator : public BaseGenerator {
       auto &struct_def = **it;
       if (!parser_.opts.one_file)
         cur_name_space_ = struct_def.defined_namespace;
-      GenStruct(struct_def, &declcode);
+#ifdef LWN_Modify
+	  bool isDataTable = it == (parser_.structs_.vec.end() - 1) ? true : false;
+      GenStruct(struct_def, &declcode, isDataTable);
+#else
+	  GenStruct(struct_def, &declcode);
+#endif
       if (parser_.opts.one_file) {
         one_file_code += declcode;
       } else {
@@ -762,7 +768,12 @@ class GeneralGenerator : public BaseGenerator {
     return key_getter;
   }
 
+#ifdef LWN_Modify
+  void GenStruct(StructDef &struct_def, std::string *code_ptr,bool isDataTable = false) const {
+#else
   void GenStruct(StructDef &struct_def, std::string *code_ptr) const {
+#endif
+  
     if (struct_def.generated) return;
     std::string &code = *code_ptr;
 
@@ -1004,6 +1015,26 @@ class GeneralGenerator : public BaseGenerator {
       }
       code += member_suffix;
       code += "}\n";
+
+#ifdef LWN_Modify
+	  std::string tableName = struct_def.name.data();
+	  std::string tableStr = tableName.erase(0, tableName.size() - 5);
+	  //printf("tableName = %s , tableStr = %s", tableName.c_str(), tableStr.c_str());
+	  if (lang_.language == IDLOptions::kCSharp && isDataTable && tableStr.compare("Table") == 0) {
+		  code += "\n//LWN_Modify\n";
+		  code += "public Dictionary<int, " + type_name_dest + optional +"> GetTableData() {\n";
+		  code += "Dictionary<int, " + type_name_dest + optional + "> table = new Dictionary<int, " + type_name_dest + optional + ">();\n";
+		  code += "for(int i=0;i<DataLength;i++){\n";
+		  code += type_name_dest + " value = (" + type_name_dest + ") Data(i);\n";
+		  code += "int Id = System.Convert.ToInt32(value.Id);\n";
+		  code += "table.Add(Id, value);\n}\n";
+		  code += "return table;\n}\n";
+	  }
+
+#endif
+
+
+
       if (field.value.type.base_type == BASE_TYPE_VECTOR) {
         code +=
             "  public int " + MakeCamel(field.name, lang_.first_camel_upper);
@@ -1117,6 +1148,11 @@ class GeneralGenerator : public BaseGenerator {
         code += "__indirect(" + lang_.accessor_prefix + "__vector(o)), ";
         code += lang_.accessor_prefix + "bb) : null; }\n";
       }
+#ifdef LWN_Modify
+#ifdef LwnDebug
+	  //printf("Code = %s",code.c_str());
+#endif // LwnDebug
+#endif//LWN_Modify
       // Generate mutators for scalar fields or vectors of scalars.
       if (parser_.opts.mutable_buffer) {
         auto underlying_type = field.value.type.base_type == BASE_TYPE_VECTOR

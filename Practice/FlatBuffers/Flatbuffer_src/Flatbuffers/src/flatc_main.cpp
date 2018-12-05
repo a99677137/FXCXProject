@@ -41,10 +41,11 @@ static void Error(const flatbuffers::FlatCompiler *flatc,
   exit(1);
 }
 
-
-//int main(int argc, const char *arg[]) {
+#ifdef LWN_Modify
 int main_origin(int argc,  char **argv) {
-
+#else
+int main(int argc, const char *arg[]) {
+#endif
   g_program_name = argv[0];
 
   const flatbuffers::FlatCompiler::Generator generators[] = {
@@ -103,7 +104,7 @@ int main_origin(int argc,  char **argv) {
 
 
 
-#ifdef Lwn
+#ifdef LWN_Modify
 
 void getFiles(std::string path, std::vector<std::string>& files)
 {
@@ -196,6 +197,7 @@ int main(int argc, const char *argv[]) {
 	}
 	std::sort(fbsFileNames.begin(), fbsFileNames.end());
 	std::sort(jsonFileNames.begin(), jsonFileNames.end());
+#ifdef LWN_Modify
 #ifdef LwnDebug
 	char** newArgv = new char*[5];
 	newArgv[0] = (char*)argv[0];//-n
@@ -212,6 +214,7 @@ int main(int argc, const char *argv[]) {
 		main_origin(argc, newArgv);
 	}
 #else
+
 	char** newArgv = new char*[6];
 	newArgv[0] = (char*)argv[0];//flatc
 	newArgv[1] = (char*)argv[1];//-n
@@ -227,7 +230,9 @@ int main(int argc, const char *argv[]) {
 		newArgv[5] = (char*)jsonFileNames[i].c_str();
 		main_origin(argc, newArgv);
 	}
+	
 #endif
+#endif // LWN_Modify
 
 	return 0;
 }

@@ -126,8 +126,11 @@ std::string FlatCompiler::GetUsageString(const char *program_name) const {
   return ss.str();
 }
 
-//int FlatCompiler::Compile(int argc, const char **argv) {
+#ifdef LWN_Modify
 int FlatCompiler::Compile(int argc, char **argv) {
+#else
+int FlatCompiler::Compile(int argc, const char **argv) {
+#endif
   if (params_.generators == nullptr || params_.num_generators == 0) {
     return 0;
   }
@@ -306,10 +309,11 @@ int FlatCompiler::Compile(int argc, char **argv) {
        ++file_it) {
     auto &filename = *file_it;
 
+#ifdef LWN_Modify
 #ifdef LwnDebug
 	printf("Start Generate:%s\n", filename.c_str());
 #endif // LwnDebug
-
+#endif//LWN_Modify
 
     std::string contents;
     if (!flatbuffers::LoadFile(filename.c_str(), true, &contents))
