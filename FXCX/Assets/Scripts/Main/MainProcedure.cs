@@ -6,7 +6,7 @@ using System.Text;
 using Game.Tools.CommonTools;
 using UnityEngine;
 
-namespace Game.Lwn.Base
+namespace Game.Lwn.Main
 {
     public class MainProcedure:Singleton<MainProcedure>,ICommon
     {

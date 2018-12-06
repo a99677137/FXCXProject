@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Game.Tools.CommonTools;
 
-namespace Game.Lwn.Base
+namespace Game.Lwn.Main
 {
     public class GameInitCFG : Singleton<GameCFG>
     {

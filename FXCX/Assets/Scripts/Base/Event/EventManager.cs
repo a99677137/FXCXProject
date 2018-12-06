@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Game.Lwn.Base
+namespace Game.Lwn.Main
 {
 
     class CloneActionList {

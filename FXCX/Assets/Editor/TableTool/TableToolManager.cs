@@ -4,7 +4,7 @@ using System.IO;
 using System;
 using UnityEngine;
 using System.Text;
-using Game.Lwn.Base;
+using Game.Lwn.Main;
 using UnityEditor;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
@@ -27,6 +27,8 @@ public class TableToolManager  {
     private static string FBOutputPath = TableToolManager.BasePath + "/../FB_Output";
 
     private static string FinallyPath = TableToolManager.BasePath + "/../GameAssets/Table";
+
+    private static string FinallyCSPath = TableToolManager.BasePath + "/Scripts/Tables";
 
     private string Ready2ChangeTablesPath = FBOutputPath + "/Ready2ChangeTables";
 
@@ -338,6 +340,14 @@ public class TableToolManager  {
             }
             File.Copy(srcPath, destPath, true);
         }
+        //if (Directory.Exists(FinallyCSPath))
+        //{
+        //    Directory.Delete(FinallyCSPath, true);
+        //}
+        //Directory.CreateDirectory(FinallyCSPath);
+        string csSrcPath = FBOutputPath + "/cs";
+        string csDestPath = FinallyCSPath;
+        FileHelper.directoryCopy(csSrcPath, csDestPath);
         Print("导表完成！");
         TableToolPanel.IsStart = false;
     }

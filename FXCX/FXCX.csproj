@@ -238,14 +238,14 @@
     <Reference Include="Debugger">
       <HintPath>Assets\Plugins\Debugger.dll</HintPath>
     </Reference>
+    <Reference Include="FlatBuffers">
+      <HintPath>Assets\Plugins\FlatBuffers\FlatBuffers.dll</HintPath>
+    </Reference>
     <Reference Include="CommonTools">
       <HintPath>Assets\Plugins\Lwn\CommonTools.dll</HintPath>
     </Reference>
     <Reference Include="CusEncoding">
       <HintPath>Assets\Plugins\Lwn\CusEncoding.dll</HintPath>
-    </Reference>
-    <Reference Include="FlatBuffers">
-      <HintPath>Assets\Plugins\FlatBuffers\FlatBuffers.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -260,11 +260,15 @@
     <Compile Include="Assets\Scripts\Base\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\Main\GameConfigManager.cs" />
     <Compile Include="Assets\Scripts\Main\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Main\LuaManager.cs" />
     <Compile Include="Assets\Scripts\Main\MainProcedure.cs" />
     <Compile Include="Assets\Scripts\Main\ScenesManager.cs" />
+    <Compile Include="Assets\Scripts\Main\TableLoader.cs" />
     <Compile Include="Assets\Scripts\Main\TableManager.cs" />
     <Compile Include="Assets\Scripts\Tables\Game\Table\Static\Only4TestTable.cs" />
     <Compile Include="Assets\Scripts\Tables\Game\Table\Static\Only4TestVO.cs" />
+    <Compile Include="Assets\Scripts\Tables\Game\Table\Static\StringDictionaryTable.cs" />
+    <Compile Include="Assets\Scripts\Tables\Game\Table\Static\StringDictionaryVO.cs" />
     <Compile Include="Assets\Scripts\Tables\Game\Table\Static\TableConfigTable.cs" />
     <Compile Include="Assets\Scripts\Tables\Game\Table\Static\TableConfigVO.cs" />
     <Compile Include="Assets\Scripts\Tables\Game\Table\Static\UIResTable.cs" />

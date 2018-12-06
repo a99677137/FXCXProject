@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Game.Lwn.Base
+namespace Game.Lwn.Main
 {
 
     public class FileHelper
@@ -359,7 +359,7 @@ namespace Game.Lwn.Base
 
         #endregion
 
-		public static void directoryCopy(string sourceDirectory, string targetDirectory,bool bRecursive = false)
+		public static void directoryCopy(string sourceDirectory, string targetDirectory,bool bRecursive = true)
 		{
 			if (!Directory.Exists(sourceDirectory))
 			{

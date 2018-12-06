@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Lwn.Base
+namespace Game.Lwn.Main
 {
     public class DataEvent
     {

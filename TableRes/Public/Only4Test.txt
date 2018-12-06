@@ -1,0 +1,5 @@
+int	string	string
+唯一Id	注释	表名
+Id	#Des	Name
+1	test1	我是测试1
+2	test2	我是测试2

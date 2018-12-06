@@ -1,26 +1,30 @@
 ﻿using System;
 using Game.Tools.CommonTools;
-using Game.Lwn.Base;
 
-class ScenesManager:Singleton<ScenesManager>
+namespace Game.Lwn.Main
 {
-    private static int LoginSceneId = 0;
-    private bool IsStartLoadLoginScene = false;
-
-    public void InitLoginScene()
+    class ScenesManager : Singleton<ScenesManager>
     {
-        if (IsStartLoadLoginScene) {
-            return;
+        private static int LoginSceneId = 0;
+        private bool IsStartLoadLoginScene = false;
+
+        public void InitLoginScene()
+        {
+            if (IsStartLoadLoginScene)
+            {
+                return;
+            }
+            GameLog.Debug("--------------------ScenesManager:InitLoginScene-----------------LoginSceneId = {0}", LoginSceneId);
+            IsStartLoadLoginScene = true;
+
+            LoadLoginSceneFinish();//临时测试流程
         }
-        GameLog.Debug("--------------------ScenesManager:InitLoginScene-----------------LoginSceneId = {0}", LoginSceneId);
-        IsStartLoadLoginScene = true;
 
-        LoadLoginSceneFinish();//临时测试流程
-    }
+        private void LoadLoginSceneFinish()
+        {
+            IsStartLoadLoginScene = false;
 
-    private void LoadLoginSceneFinish() {
-        IsStartLoadLoginScene = false;
-
-        EventManager.SendEvent(DataEvent.FinishLoadLoginScenes);
+            EventManager.SendEvent(DataEvent.FinishLoadLoginScenes);
+        }
     }
 }

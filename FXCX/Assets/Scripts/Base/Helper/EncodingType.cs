@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Game.Lwn.Base
+namespace Game.Lwn.Main
 {
 
     class EncodingType
