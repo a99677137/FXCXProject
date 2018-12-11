@@ -16,11 +16,24 @@
 
 
 #include "flatbuffers/flatc.h"
+#include "flatbuffers/lwn_debug.h"
 #include <iostream>
-#include <io.h>
 #include <string>
 #include <vector>
-#include "flatbuffers/lwn_debug.h"
+
+#ifdef LWN_Modify
+
+#ifdef __APPLE__
+#include <stdio.h>
+#include <dirent.h>
+#include <map>
+#else
+    #include <io.h>
+#endif
+
+#endif
+
+
 
 
 
@@ -106,6 +119,33 @@ int main(int argc, const char *arg[]) {
 
 #ifdef LWN_Modify
 
+    
+#ifdef __APPLE__
+    void getFiles(std::string path, std::vector<std::string>& files)
+    {
+        std::string p = "";
+        
+        struct dirent *dirp;
+        
+        DIR* dir = opendir(p.assign(path).append("/").c_str());
+        
+        if(dir != nullptr ){
+            while ((dirp = readdir(dir)) != nullptr) {
+                if (dirp->d_type == DT_REG) {
+                    files.push_back(p.assign(path).append("/").append(dirp->d_name));
+                    
+                } else if (dirp->d_type == DT_DIR) {
+                    if (strcmp(dirp->d_name, ".") != 0 && strcmp(dirp->d_name, "..") != 0)
+                        getFiles(p.assign(path).append("/").append(dirp->d_name), files);
+                }
+            }
+            closedir(dir);
+            
+        }
+    }
+    
+#else
+    
 void getFiles(std::string path, std::vector<std::string>& files)
 {
 	//нд╪Ч╬Д╠З  
@@ -133,16 +173,23 @@ void getFiles(std::string path, std::vector<std::string>& files)
 	}
 }
 
-
+#endif
 
 int main(int argc, const char *argv[]) {
 
 #ifdef LwnDebug
 	argc = 5;
+#ifdef __APPLE__
+    const char* test[5] = { "-b","-o",
+        "/Users/admin/Desktop/FXCX/FXCX/FB_Output/bin",
+        "/Users/admin/Desktop/FXCX/FXCX/FB_Output/fbs" ,
+        "/Users/admin/Desktop/FXCX/FXCX/FB_Output/json" };
+#else
 	const char* test[5] = { "-n","-o",
 		"E:\\FXCX\\FXCX\\FB_Output\\cs",
 		"E:\\FXCX\\FXCX\\FB_Output\\fbs" ,
 		"E:\\FXCX\\FXCX\\FB_Output\\json" };
+#endif
 	argv = test;
 
 	for (int argi = 0; argi < argc; argi++) {
@@ -179,8 +226,13 @@ int main(int argc, const char *argv[]) {
 						if (extName == "fbs")
 						{
 							fbsFileNames.push_back(files[i]);
+#ifdef __APPLE__
+                            fbsDirMap.insert(std::pair<std::string, std::string>(files[i], files[i].substr(len, files[i].find_last_of('/') - len)));
+#else
 							fbsDirMap.insert(std::pair<std::string, std::string>(files[i], files[i].substr(len, files[i].find_last_of('\\') - len)));
-						}
+#endif
+                            
+                        }
 						else if (extName == "json")
 						{
 							jsonFileNames.push_back(files[i]);
