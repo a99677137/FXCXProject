@@ -10,13 +10,16 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-class TableConfigItem {
-    
+class TableConfigItem
+{
+
 }
 
-public class TableToolManager  {
+public class TableToolManager
+{
     private static TableToolManager _instance = null;
-    public static TableToolManager  Instance {
+    public static TableToolManager Instance
+    {
         get { if (_instance == null) return _instance = new TableToolManager(); else return _instance; }
     }
 
@@ -32,9 +35,9 @@ public class TableToolManager  {
 
     private string Ready2ChangeTablesPath = FBOutputPath + "/Ready2ChangeTables";
 
-    private string FbsPath = FBOutputPath +"/fbs";
+    private string FbsPath = FBOutputPath + "/fbs";
 
-    private string JsonPath = FBOutputPath+"/json";
+    private string JsonPath = FBOutputPath + "/json";
 
     public string PrintMsg = "";
 
@@ -42,7 +45,13 @@ public class TableToolManager  {
 
     private string tableConfig = "/TableConfig.txt";
 
+
+#if UNITY_STANDALONE_OSX
+    private string ProcessName = "/GenerateAllTable.command";
+#elif UNITY_STANDALONE_WIN
     private string ProcessName = "/GenerateAllTable.bat";
+#endif
+
 
     private Dictionary<int, TableItemVO> CSTableList = new Dictionary<int, TableItemVO>();
 
