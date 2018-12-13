@@ -1,8 +1,8 @@
 int	string	string	string	string	bool	bool	bool	bool	int
-Î¨Ò»Id	×¢ÊÍ	±íÃû	×ÊÔ´Î»ÖÃ	ÃüÃû¿Õ¼ä	ÊÇ·ñÊÇlua±í	ÊÇ·ñÊÇC#±í	ÊÇ·ñ²ğ·Ö£¨Í¨³£ĞèÒª±éÀúµÄ±í²»²ğ£©	ÊÇ·ñÁ¢¼´¼ÓÔØ	¼ÓÔØµÈ¼¶
+å”¯ä¸€Id	æ³¨é‡Š	è¡¨å	èµ„æºä½ç½®	å‘½åç©ºé—´	æ˜¯å¦æ˜¯luaè¡¨	æ˜¯å¦æ˜¯C#è¡¨	æ˜¯å¦æ‹†åˆ†ï¼ˆé€šå¸¸éœ€è¦éå†çš„è¡¨ä¸æ‹†ï¼‰	æ˜¯å¦ç«‹å³åŠ è½½	åŠ è½½ç­‰çº§
 Id	#Des	Name	ResourcePath	NameSpace	IsLua	IsCSharp	IsSplit	IsImmediately	level
 0	tableconfig	TableConfig	/TableConfig	Game.Table.Static	FALSE	TRUE	FALSE	TRUE	0
-1	×Öµä±í	StringDictionary	/Client/ResTable/StringDictionary	Game.Table.Static	FALSE	TRUE	TRUE	TRUE	0
-2	UI×ÊÔ´±í	UIRes	/Client/ResTable/UIRes	Game.Table.Static	FALSE	TRUE	TRUE	TRUE	0
-3	UIÃæ°å×ÊÔ´±í	UILayer	/Client/UILayer	None	TRUE	FALSE	TRUE	TRUE	0
-4	²âÊÔ±í	Only4Test	/Public/Only4Test	Game.Table.Static	FALSE	TRUE	FALSE	FALSE	3
+1	å­—å…¸è¡¨	StringDictionary	/Client/ResTable/StringDictionary	Game.Table.Static	FALSE	TRUE	TRUE	TRUE	0
+2	UIèµ„æºè¡¨	UIRes	/Client/ResTable/UIRes	Game.Table.Static	FALSE	TRUE	TRUE	TRUE	0
+3	UIé¢æ¿èµ„æºè¡¨	UILayer	/Client/UILayer	None	TRUE	FALSE	TRUE	TRUE	0
+4	æµ‹è¯•è¡¨	Only4Test	/Public/Only4Test	Game.Table.Static	FALSE	TRUE	FALSE	FALSE	3

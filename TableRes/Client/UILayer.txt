@@ -1,4 +1,4 @@
 int	int	string	int	int	int	int	int	int	int
-"ID(��Χ[0,9999999])"	UIRes���ID	�߻�����	�㼶-0�����棺base�㣻1�����棺pop1�㣻2�����棺pop2�㣻3�����棺pop3�㣻4�����棺map�㣻5�����棺story�㣻 6�����棺tip���棻7�����棺top���棬8������:pop4(����story����tip)-1�޲㼶	�Ƿ�����base�㣬1�ǣ�0��-1�޲㼶	�Ƿ����������㼶��������tip��top����1�ǣ�0��-1�޲㼶	"layer�㼶(1-8)Ĭ��Ϊ1,�ڵ�3DUI����ʱ��8"	�����ڵ���ԴID	�Ƿ񲥷Ŵ򿪺͹ر�ʱ����Ч��1���ţ�0����	
+"ID(范围[0,9999999])"	UIRes里的ID	策划看的	层级-0级界面：base层；1级界面：pop1层；2级界面：pop2层；3级界面：pop3层；4级界面：map层；5级界面：story层； 6级界面：tip界面；7级界面：top界面，8级界面:pop4(高于story低于tip)-1无层级	是否隐藏base层，1是，0否；-1无层级	是否隐藏其它层级（不包含tip和top），1是，0否；-1无层级	"layer层级(1-8)默认为1,遮挡3DUI的暂时填8"	背景遮挡资源ID	是否播放打开和关闭时的音效，1播放，0不播	
 Id	UIResID	#Des	Layer	InvisibleBase	InvisibleLayers	cameraLayer	maskRes	IsSoundEffect	#test
-1	1	��¼UI	1	1	1	1	-1	0	0
+1	1	登录UI	1	1	1	1	-1	0	0

@@ -1,5 +1,5 @@
 int	string	string
-唯一Id	注释	表名
+鍞竴Id	娉ㄩ噴	琛ㄥ悕
 Id	#Des	Name
-1	test1	我是测试1
-2	test2	我是测试2
+1	test1	鎴戞槸娴嬭瘯1
+2	test2	鎴戞槸娴嬭瘯2

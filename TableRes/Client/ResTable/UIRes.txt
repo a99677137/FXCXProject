@@ -1,5 +1,5 @@
 int	string	string
-ฮจาปId	ืขสอ	ยทพถ
+ๅ”ฏไธ€Id	ๆณจ้	่ทฏๅพ
 Id	#Description	Path
-#1-100000สวUIืสิด	100001าิบ๓สวUIืสิด	200001าิบ๓สวา๔ฦตืสิด
-1	ตวยผUI	Resource/UI/LoginPanel
+#1-100000ๆฏUI่ตๆบ	100001ไปฅๅๆฏUI่ตๆบ	200001ไปฅๅๆฏ้ณ้ข‘่ตๆบ
+1	็ปๅฝ•UI	Resource/UI/LoginPanel
