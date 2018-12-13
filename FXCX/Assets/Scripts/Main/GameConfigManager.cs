@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.Lwn.Main;
 using Game.Tools.CommonTools;
+using Game.Table.Static;
 namespace Game.Lwn.Main
 {
     class GameConfigManager : Singleton<GameConfigManager>
@@ -63,6 +64,11 @@ namespace Game.Lwn.Main
             }
             GameLog.Debug("------------GameConfigManager:LoadGameTable----------");
             TableManager.Instance.Init();
+
+            //Test
+            Only4TestVO dataVO = (Only4TestVO)TableManager.Instance.GetTableData("Only4Test", 1);
+            GameLog.Debug("-----------GameConfigManager:LoadGameTable-----Only4Test Value = {0}",dataVO.Name);
+            //Test end
 
             //TODO-----
             _gameTable_Finish = true;
