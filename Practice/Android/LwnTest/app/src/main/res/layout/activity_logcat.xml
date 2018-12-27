@@ -44,9 +44,11 @@
             android:id="@+id/MsgContent"
             android:lineSpacingExtra="2dp"
             android:scrollbars="vertical"
+            android:scrollbarStyle="insideOverlay"
             android:ellipsize="none"
             android:maxLines="20"
             android:scrollHorizontally="false"
+            android:fadeScrollbars="false"
             android:singleLine="false"/>
 
     </LinearLayout>

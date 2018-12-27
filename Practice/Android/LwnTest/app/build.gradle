@@ -19,6 +19,36 @@ android {
             }
         }
     }
+
+    signingConfigs {
+        //config {
+            //加载资源
+//            Properties props = new Properties()
+//            InputStream inputStream = project.rootProject.file('app/signing.properties').newDataInputStream()
+//            props.load( inputStream )
+
+        //}
+
+        def props = new Properties()
+        new File("app/signing.properties").withInputStream {
+            stream -> props.load(stream)
+        }
+
+        release {//发布版本的签名配置
+            storeFile file(props['KEYSTORE_FILE'])
+            keyAlias props['KEY_ALIAS']
+            storePassword props['KEYSTORE_PWD']
+            keyPassword props['KEY_PWD']
+        }
+        debug {//调试版本的签名配置
+            storeFile file(props['DEBUG_KEYSTORE'])
+            keyAlias props['DEBUG_ALIAS']
+            storePassword props['DEBUG_KEYSTORE_PWD']
+            keyPassword props['DEBUG_KEY_PWD']
+            v2SigningEnabled false
+        }
+
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -33,10 +63,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     //androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
        // exclude group: 'com.android.support', module: 'support-annotations'
     //})
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:appcompat-v7:26.+'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }

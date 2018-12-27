@@ -105,11 +105,22 @@ public class LogCatActivity extends Activity implements  Runnable {
 
     }
 
+    private void refreshAlarmView(TextView textView,String msg){
+        textView.append(msg);
+        int offset=textView.getLineCount()*textView.getLineHeight();
+        if(offset>(textView.getHeight()-textView.getLineHeight()-20)){
+            textView.scrollTo(0,offset-textView.getHeight()+textView.getLineHeight());
+        }
+    }
+
+
+
     Handler mTimeHandler = new Handler(Looper.getMainLooper()) {
         public void handleMessage(android.os.Message message) {
             if (message.what == 0) {
                 try {
                     msg.append (stringB.toString()); //View.ininvalidate()
+                    //refreshAlarmView(msg,stringB.toString());
                     fileWriter.write(stringB.toString());
                     fileWriter.flush();
                 }catch(Exception e){
