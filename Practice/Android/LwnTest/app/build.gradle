@@ -39,6 +39,8 @@ android {
             keyAlias props['KEY_ALIAS']
             storePassword props['KEYSTORE_PWD']
             keyPassword props['KEY_PWD']
+
+
         }
         debug {//调试版本的签名配置
             storeFile file(props['DEBUG_KEYSTORE'])
@@ -53,6 +55,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //Zipalign优化
+            zipAlignEnabled true
         }
     }
     externalNativeBuild {
