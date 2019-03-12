@@ -37,7 +37,8 @@ public class ScreenShotHelper {
 	 private static final String[] KEYWORDS = {
          "screenshot", "screen_shot", "screen-shot", "screen shot",
          "screencapture", "screen_capture", "screen-capture", "screen capture",
-         "screencap", "screen_cap", "screen-cap", "screen cap"
+         "screencap", "screen_cap", "screen-cap", "screen cap",
+         "截屏"
 	 };
 	 
 	 /** 读取媒体数据库时需要读取的列 */
@@ -129,11 +130,12 @@ public class ScreenShotHelper {
      */
     private void handleMediaRowData(String data, long dateTaken) {
         if (checkScreenShot(data, dateTaken)) {
-            Log.d(TAG, data + " " + dateTaken);
+        	TlbbLog.d("Lwn:data=" + data + "! token=" + dateTaken);
             //MainActivity.ShowSysDialog("LwnTest", "ScreenShot!!!!", "OK", "Cancel");
             Toast.makeText(MainActivity.CurActivity, "ScreenShot!!!", 10).show();
+        	//UnityPlayer.UnitySendMessage(NativeManager.ObserverGameObject, "OnAndroidScreenShot", data);
         } else {
-            Log.d(TAG, "Not screenshot event");
+        	TlbbLog.d("Not screenshot event");
         }
     }
     
@@ -141,9 +143,9 @@ public class ScreenShotHelper {
      * 判断是否是截屏
      */
     private boolean checkScreenShot(String data, long dateTaken) {
-    	Log.e(TAG, "******************* checkScreenShot-> data = " + data);
-    	Log.e(TAG, "******************* checkScreenShot-> dateTaken = " + dateTaken);
-    	Log.e(TAG, "******************* checkScreenShot-> currentTimeMillis = " + System.currentTimeMillis());
+    	TlbbLog.d("******************* checkScreenShot-> data = " + data);
+    	TlbbLog.d("******************* checkScreenShot-> dateTaken = " + dateTaken);
+    	TlbbLog.d("******************* checkScreenShot-> currentTimeMillis = " + System.currentTimeMillis());
         data = data.toLowerCase();
         if(System.currentTimeMillis() - dateTaken >(10*1000)){
         	return false;

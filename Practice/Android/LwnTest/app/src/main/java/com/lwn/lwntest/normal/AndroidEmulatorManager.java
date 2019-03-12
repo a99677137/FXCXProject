@@ -22,14 +22,14 @@ public class AndroidEmulatorManager {
 					|| notHasLightSensorManager(context) 
 					|| DeviceInfoIsEmulator()
 					|| CheckCpuEmulator();
-			Log.e("LWN","---------------------AndroidEmulatorManager:HasNoBlueTooth = " +HasNoBlueTooth());
-			Log.e("LWN","---------------------AndroidEmulatorManager:notHasLightSensorManager(context) = " +notHasLightSensorManager(context));
-			Log.e("LWN","---------------------AndroidEmulatorManager:DeviceInfoIsEmulator() = " +DeviceInfoIsEmulator());
-			Log.e("LWN","---------------------AndroidEmulatorManager:CheckCpuEmulator()= " +CheckCpuEmulator());
-			Log.e("LWN","---------------------AndroidEmulatorManager:IsEmulatorManager-------result="+result );
+			TlbbLog.d("---------------------AndroidEmulatorManager:HasNoBlueTooth = " +HasNoBlueTooth());
+			TlbbLog.d("---------------------AndroidEmulatorManager:notHasLightSensorManager(context) = " +notHasLightSensorManager(context));
+			TlbbLog.d("---------------------AndroidEmulatorManager:DeviceInfoIsEmulator() = " +DeviceInfoIsEmulator());
+			TlbbLog.d("---------------------AndroidEmulatorManager:CheckCpuEmulator()= " +CheckCpuEmulator());
+			TlbbLog.d("---------------------AndroidEmulatorManager:IsEmulatorManager-------result="+result );
 		}
 		catch(Exception ex){
-			Log.e("LWN","---------------------AndroidEmulatorManager:IsEmulatorManager----Exception = " + ex.toString());
+			TlbbLog.e("---------------------AndroidEmulatorManager:IsEmulatorManager----Exception = " + ex.toString());
 		}
 		return result;
 	}
@@ -37,13 +37,13 @@ public class AndroidEmulatorManager {
 	public static boolean HasNoBlueTooth(){
 		BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
 		if(adapter == null){
-			Log.e("LWN","---------------------AndroidEmulatorManager:HasNoBlueTooth------adapter = null" );
+			TlbbLog.d("---------------------AndroidEmulatorManager:HasNoBlueTooth------adapter = null" );
 			return true;
 		}else{
 			//如果有蓝牙不一定是有效的。获取蓝牙名称，若为null 则默认为模拟器
 			String name = adapter.getName();
 			if(TextUtils.isEmpty(name)){
-				Log.e("LWN","---------------------AndroidEmulatorManager:HasNoBlueTooth------adapter.getName() = null" );
+				TlbbLog.d("---------------------AndroidEmulatorManager:HasNoBlueTooth------adapter.getName() = null" );
 				return true;
 			}else{
 				return false;
@@ -66,7 +66,7 @@ public class AndroidEmulatorManager {
 	        return false;
 	    }
 	}
-	
+
 	public static boolean DeviceInfoIsEmulator(){
 		return Build.FINGERPRINT.startsWith("generic") 
 			|| Build.FINGERPRINT.toLowerCase().contains("vbox")
@@ -80,7 +80,7 @@ public class AndroidEmulatorManager {
 		
 	}
 	
-	public static String ReadCpuInfo(){
+	private static String ReadCpuInfo(){
 		String result = "";
 		try {
 	        String[] args = {"/system/bin/cat", "/proc/cpuinfo"};
@@ -95,9 +95,9 @@ public class AndroidEmulatorManager {
 	        }
 	        responseReader.close();
 	        result = sb.toString().toLowerCase();
-			Log.e("LWN","---------------------AndroidEmulatorManager:ReadCpuInfo------result = " + result );
+			TlbbLog.d("---------------------AndroidEmulatorManager:ReadCpuInfo------result = " + result );
 	    } catch (IOException ex) {
-	    	Log.e("LWN","---------------------AndroidEmulatorManager:ReadCpuInfo----IOException = " + ex.toString());
+	    	TlbbLog.e("---------------------AndroidEmulatorManager:ReadCpuInfo----IOException = " + ex.toString());
 	    }
 	    return result;
 	}
@@ -109,7 +109,7 @@ public class AndroidEmulatorManager {
 	public static boolean CheckCpuEmulator() {
 	    String cpuInfo = ReadCpuInfo();
 	    if ((cpuInfo.contains("intel") || cpuInfo.contains("amd"))) {
-	    	Log.e("LWN","---------------------AndroidEmulatorManager:CheckCpuEmulator-------------reutrn true");
+	    	TlbbLog.d("---------------------AndroidEmulatorManager:CheckCpuEmulator-------------reutrn true");
 	        return true;
 	    }
 	    return false;

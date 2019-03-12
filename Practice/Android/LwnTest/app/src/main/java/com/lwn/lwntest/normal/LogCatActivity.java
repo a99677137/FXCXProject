@@ -155,6 +155,8 @@ public class LogCatActivity extends Activity implements  Runnable {
     protected void onDestroy(){
         super.onDestroy();
         try {
+            mLogcatProc.destroy();
+            mLogcatProc = null;
             reader.close();
             stringB.setLength(0);
             stringB = null;

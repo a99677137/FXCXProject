@@ -9,7 +9,7 @@ JNIEXPORT jstring JNICALL
 Java_com_lwn_lwntest_MainActivity_stringFromJNI(JNIEnv *env, jobject /* this */) {
 
     int result = lwn_native::lwntest(5,6);
-    std::string hello = "Hello from C++";
+    std::string hello = "Lwn Hello from C++";
     LOGE("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAresult = %d",result);
 
     return env->NewStringUTF(hello.c_str());
