@@ -5,7 +5,7 @@
 #include "../Header/IFile.h"
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
-namespace AmQ
+namespace LWN
 {
 	class AssetFile :public IFile
 	{

@@ -1,11 +1,11 @@
 #include "../Header/FileProxy.h"
+#include "../Header/DebugLog.h"
 #if __ANDROID__
 #include "../Android/AssetFile.h"
-#include "../Header/android_log.h"
 #endif
 #include "../Header/BaseFile.h"
 
-namespace AmQ
+namespace LWN
 {
 	FileProxy::FileProxy()
 		:file(NULL)

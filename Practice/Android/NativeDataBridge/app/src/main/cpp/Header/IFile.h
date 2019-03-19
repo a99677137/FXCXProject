@@ -2,7 +2,7 @@
 #define _IFILE_H_
 #include "Common.h"
 #include "stdio.h"
-namespace AmQ
+namespace LWN
 {
 	class IFile
 	{

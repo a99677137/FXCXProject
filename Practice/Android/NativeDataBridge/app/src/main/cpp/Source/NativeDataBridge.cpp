@@ -1,6 +1,7 @@
 // AmQNative.cpp : Defines the exported functions for the DLL application.
 //
 #include "../Header/Common.h"
+#include "../Header/DebugLog.h"
 #include "../Header/FileProxy.h"
 #include "../Header/ByteBuffer.h"
 #include "../Header/ByteBufferManager.h"
@@ -55,8 +56,12 @@
 */
 //_DLLExport VOID BufferLittleEndian(bool IsLittleEndian)
 //{
-//	AmQ::ByteBuffer::IsLittleEndian = IsLittleEndian;
+//	LWN::ByteBuffer::IsLittleEndian = IsLittleEndian;
 //}
+
+CHAR * g_sdata = new CHAR[10240];
+
+
 #if __ANDROID__
 #include <jni.h>
 #include <string>
@@ -71,7 +76,6 @@
 #include <errno.h>
 #include <unistd.h>
 #include "../Android/AssetFile.h"
-#include "../Header/android_log.h"
 //#include <map>
 
 JNIEnv* jni_env = 0;
@@ -81,7 +85,7 @@ _DLLExport jint JNI_OnLoad(JavaVM* vm, void* reserved)
 	return  JNI_VERSION_1_6;
 }
 
-_DLLExport JNIEXPORT jint JNICALL InitialDLL(JNIEnv *, jobject)
+_DLLExport JNIEXPORT jint JNICALL AndroidInit(JNIEnv *, jobject)
 {
 	if (jni_env == NULL)
 		return 0;
@@ -112,7 +116,7 @@ _DLLExport JNIEXPORT jint JNICALL InitialDLL(JNIEnv *, jobject)
 		if (assetManager == NULL)
 			return 0;
 
-		AmQ::AssetFile::s_pAssetMgr = AAssetManager_fromJava(jni_env, assetManager);
+		LWN::AssetFile::s_pAssetMgr = AAssetManager_fromJava(jni_env, assetManager);
 		rlimit cur_fd_limit;
 		getrlimit(RLIMIT_NOFILE, &cur_fd_limit);
 		rlimit new_limit = cur_fd_limit;
@@ -120,7 +124,7 @@ _DLLExport JNIEXPORT jint JNICALL InitialDLL(JNIEnv *, jobject)
 		new_limit.rlim_max = cur_fd_limit.rlim_max;
 		setrlimit(RLIMIT_NOFILE, &new_limit);
 		//int result = getrlimit(RLIMIT_NOFILE, &cur_fd_limit);
-		if (AmQ::AssetFile::s_pAssetMgr == NULL)
+		if (LWN::AssetFile::s_pAssetMgr == NULL)
 			return 0;
 		return 1;
 	}
@@ -132,7 +136,7 @@ _DLLExport JNIEXPORT jint JNICALL InitialDLL(JNIEnv *, jobject)
 
 _DLLExport jint TryOpenAssetFile(const char* filename)
 {
-	AAsset *pAsset = AAssetManager_open(AmQ::AssetFile::s_pAssetMgr, filename, AASSET_MODE_UNKNOWN);
+	AAsset *pAsset = AAssetManager_open(LWN::AssetFile::s_pAssetMgr, filename, AASSET_MODE_UNKNOWN);
 	if (pAsset == NULL)
 		return 0;
 	AAsset_close(pAsset);
@@ -140,10 +144,10 @@ _DLLExport jint TryOpenAssetFile(const char* filename)
 }
 _DLLExport unsigned char* SeekReadAssetFile(const char* filename, unsigned int& datasize, unsigned int& offset)
 {
-	AAsset* pAsset = AAssetManager_open(AmQ::AssetFile::s_pAssetMgr, filename, AASSET_MODE_UNKNOWN);
-	if (pAsset == NULL){
+	AAsset* pAsset = AAssetManager_open(LWN::AssetFile::s_pAssetMgr, filename, AASSET_MODE_UNKNOWN);
+	if (pAsset == NULL)
 		return NULL;
-    }
+
 	unsigned char* buffer = NULL;
 	buffer = new unsigned char[datasize];
 	off_t t_offset = AAsset_seek(pAsset, offset, 0);
@@ -158,65 +162,84 @@ _DLLExport unsigned char* SeekReadAssetFile(const char* filename, unsigned int& 
 }
 #endif
 
-CHAR * g_sdata = new CHAR [10240];
+#if _WIN64
+FILE * fConsole;
+_DLLExport INT Log_Init() {
+	
+	freopen_s(&fConsole, "nativelog.txt", "w+", stdout);
+	alog("-----------------------Native Start-----------------------------");
+	return 1;
+}
 
-_DLLExport FLOAT  AmQ_UnityNativePlugin()
+_DLLExport VOID Log_Release() {
+	alog("-----------------------Native End-----------------------------");
+	fclose(fConsole);
+}
+#endif
+
+_DLLExport VOID DestroyNative()
 {
+	LWN::ByteBufferManager::Destroy();
+	LWN::GlobalIDManager::ResetGlobalID();
+}
+
+_DLLExport INT UnityNativeInit()
+{
+#if _WIN64
+	return Log_Init();
+#endif
 	return 1.0;
 }
 
-_DLLExport INT CreateFileBuffer(STRING szFileName)
+_DLLExport VOID UnityNativeRelease()
 {
-    //LOGE("*************************CreateFileBuffer---szFileName = %s",szFileName);
-	AmQ::FileProxy file;
-	if (file.open(szFileName))
-	{
-		AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::CreateByteBuffer(file, file.length());
-		if (byteBuffer.Valid)
-		{
-			return byteBuffer.BufferID;
-		}
-		else
-		{
-		    //LOGE("*************************szFileName = %s return -1",szFileName);
-			return -1;
+#if _WIN64
+	Log_Release();
+#endif
+	DestroyNative();
+}
 
-		}
+
+_DLLExport INT CreateFileBuffer(STRING szFileName, UINT len)
+{
+	alog("-----------------------CreateFileBuffer----------szFileName = %s,len=%d", szFileName, len);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::CreateByteBuffer(szFileName, -1,-1,len);
+	if (byteBuffer.Valid)
+	{
+		return byteBuffer.BufferID;
+	}
+	else
+	{
+		return -1;
+
 	}
 	return -1;
 }
 
-_DLLExport INT CreateBufferFromFile(STRING szFileName, UINT offset, UINT dataSize)
+_DLLExport INT CreateBufferFromFile(STRING szFileName, UINT offset, UINT dataSize, UINT len)
 {
-    //LOGE("*************************AmQNative:CreateBufferFromFile--szFileName = %s offset=%d dataSize=%d",szFileName,offset,dataSize);
-	AmQ::FileProxy file;
-	if (file.open(szFileName))
+	alog("-----------------------CreateBufferFromFile----------szFileName = %s,offset=%d,dataSize=%d", szFileName, offset, dataSize);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::CreateByteBuffer(szFileName, dataSize, offset,len);
+	if (byteBuffer.Valid)
 	{
-		file.seek(offset);
-		UINT len  = file.length();
-		if (offset + dataSize > len)
-		{
-			return -1;
-		}
-		else
-		{
-			AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::CreateByteBuffer(file, dataSize);
-			if(byteBuffer.Valid)
-			{
-				return byteBuffer.BufferID;
-			}
-			else
-			{
-				return -1;
-			}
-		}
+		return byteBuffer.BufferID;
+	}
+	else
+	{
+		return -1;
+
 	}
 	return -1;
+}
+
+_DLLExport INT DestroyByBufferID(INT bufferID) {
+	alog("----------DestroyByBufferID----bufferID = %d", bufferID);
+	return LWN::ByteBufferManager::DestroyDataByBufferId(bufferID);
 }
 
 _DLLExport VOID BufferGetByte(INT bufferID, UINT offset, BYTE& data)
 {
-	AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::GetByteBuffer(bufferID);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
 	if (byteBuffer.Valid)
 	{
 		data = byteBuffer.GetByte(offset);
@@ -225,7 +248,7 @@ _DLLExport VOID BufferGetByte(INT bufferID, UINT offset, BYTE& data)
 
 _DLLExport VOID BufferGetDouble(INT bufferID, UINT offset, DOUBLE& data)
 {
-	AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::GetByteBuffer(bufferID);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
 	if (byteBuffer.Valid)
 	{
 		data = byteBuffer.GetDouble(offset);
@@ -234,7 +257,7 @@ _DLLExport VOID BufferGetDouble(INT bufferID, UINT offset, DOUBLE& data)
 
 _DLLExport VOID BufferGetFloat(INT bufferID, UINT offset, FLOAT& data)
 {
-	AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::GetByteBuffer(bufferID);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
 	if (byteBuffer.Valid)
 	{
 		data = byteBuffer.GetFloat(offset);
@@ -243,7 +266,7 @@ _DLLExport VOID BufferGetFloat(INT bufferID, UINT offset, FLOAT& data)
 
 _DLLExport VOID BufferGetInt(INT bufferID, UINT offset, INT& data)
 {
-	AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::GetByteBuffer(bufferID);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
 	if (byteBuffer.Valid)
 	{
 		data = byteBuffer.GetInt(offset);
@@ -252,7 +275,7 @@ _DLLExport VOID BufferGetInt(INT bufferID, UINT offset, INT& data)
 
 _DLLExport VOID BufferGetLong(INT bufferID, UINT offset, INT64& data)
 {
-	AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::GetByteBuffer(bufferID);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
 	if (byteBuffer.Valid)
 	{
 		data = byteBuffer.GetLong(offset);
@@ -261,7 +284,7 @@ _DLLExport VOID BufferGetLong(INT bufferID, UINT offset, INT64& data)
 
 _DLLExport VOID BufferGetSbyte(INT bufferID, UINT offset, SBYTE& data)
 {
-	AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::GetByteBuffer(bufferID);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
 	if (byteBuffer.Valid)
 	{
 		data = byteBuffer.GetSbyte(offset);
@@ -270,7 +293,7 @@ _DLLExport VOID BufferGetSbyte(INT bufferID, UINT offset, SBYTE& data)
 
 _DLLExport VOID BufferGetShort(INT bufferID, UINT offset, SHORT& data)
 {
-	AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::GetByteBuffer(bufferID);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
 	if (byteBuffer.Valid)
 	{
 		data = byteBuffer.GetShort(offset);
@@ -279,7 +302,7 @@ _DLLExport VOID BufferGetShort(INT bufferID, UINT offset, SHORT& data)
 
 _DLLExport VOID BufferGetUShort(INT bufferID, UINT offset, USHORT& data)
 {
-	AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::GetByteBuffer(bufferID);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
 	if (byteBuffer.Valid)
 	{
 		data = byteBuffer.GetUShort(offset);
@@ -288,7 +311,7 @@ _DLLExport VOID BufferGetUShort(INT bufferID, UINT offset, USHORT& data)
 
 _DLLExport VOID BufferGetUInt(INT bufferID, UINT offset, UINT& data)
 {
-	AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::GetByteBuffer(bufferID);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
 	if (byteBuffer.Valid)
 	{
 		data = byteBuffer.GetUInt(offset);
@@ -297,41 +320,31 @@ _DLLExport VOID BufferGetUInt(INT bufferID, UINT offset, UINT& data)
 
 _DLLExport VOID BufferGetULong(INT bufferID, UINT offset, UINT64& data)
 {
-	AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::GetByteBuffer(bufferID);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
 	if (byteBuffer.Valid)
 	{
 		data = byteBuffer.GetULong(offset);
 	}
 }
 
-
-_DLLExport CHAR* BufferGetDataIntPtr(INT bufferID, UINT offset, UINT dataSize)
+_DLLExport VOID BufferGetData(INT bufferID, UINT offset, UINT dataSize, CHAR* data)
 {
-    //LOGE("*************************AmQNative:BufferGetData--bufferID = %d offset=%d dataSize=%d",bufferID,offset,dataSize);
-	AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::GetByteBuffer(bufferID);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
 	if (byteBuffer.Valid)
 	{
-        memcpy(g_sdata, byteBuffer.GetData() + offset, dataSize);
-        //LOGE("*************************AmQNative:BufferGetData--bufferID = %d offset=%d dataSize=%d  Valid=true data=%s",bufferID,offset,dataSize,g_sdata);
-        g_sdata[dataSize]='\0';
-        return g_sdata;
+		memcpy(data, byteBuffer.GetData() + offset, dataSize);
+	}
+}
+
+_DLLExport CHAR * BufferGetDataIntPtr(INT bufferID, UINT offset, UINT dataSize)
+{
+	alog("--------BufferGetDataIntPtr---------bufferID=%d offset=%d dataSize = %d", bufferID, offset,dataSize);
+	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
+	if (byteBuffer.Valid)
+	{
+		memcpy(g_sdata, byteBuffer.GetData() + offset, dataSize);
+		g_sdata[dataSize] = '\0';
+		return g_sdata;
 	}
 	return NULL;
-}
-
-
-_DLLExport VOID BufferGetData(INT bufferID, UINT offset, UINT dataSize,CHAR* data)
-{
-    //LOGE("*************************AmQNative:BufferGetData--bufferID = %d offset=%d dataSize=%d",bufferID,offset,dataSize);
-	AmQ::ByteBuffer& byteBuffer = AmQ::ByteBufferManager::GetByteBuffer(bufferID);
-	if (byteBuffer.Valid)
-	{
-        memcpy(data, byteBuffer.GetData() + offset, dataSize);
-	}
-}
-
-_DLLExport VOID AmQ_DestroyNative()
-{
-	AmQ::ByteBufferManager::Destroy();
-	AmQ::GlobalIDManager::ResetGlobalID();
 }

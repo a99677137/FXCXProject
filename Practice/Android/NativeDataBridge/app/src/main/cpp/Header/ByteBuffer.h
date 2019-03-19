@@ -1,13 +1,16 @@
 #ifndef _BYTE_BUFFER_H_
 #define _BYTE_BUFFER_H_
 #include "Common.h"
-namespace AmQ
+namespace LWN
 {
 	class ByteBuffer
 	{
 	public:
-		bool Valid;
-		int  BufferID;
+		bool	Valid;
+		int		BufferID;
+		STRING	FileName;
+		int		Offset;
+		int		DataSize;
 		//static bool IsLittleEndian;
 	private:
 		BYTE * buffer;
@@ -36,6 +39,8 @@ namespace AmQ
 		UINT64 GetULong(UINT offset);
 
 		BYTE*  GetData();
+
+		VOID DeleteData();
 
 	friend class ByteBufferManager;
 	};

@@ -2,7 +2,7 @@
 #define _BYTEBUFFERMANAGER_H_
 #include "Common.h"
 #include <unordered_map>
-namespace AmQ
+namespace LWN
 {
 	class ByteBuffer;
 	class FileProxy;
@@ -10,8 +10,10 @@ namespace AmQ
 	{
 	public:
 		static ByteBuffer& GetByteBuffer(INT bufferID);
-		static ByteBuffer& CreateByteBuffer(FileProxy& file, UINT dataSize);
+		static ByteBuffer& CreateByteBuffer(STRING szFileName, UINT dataSize, UINT offset, UINT len);
 		static VOID Destroy();
+		static INT DestroyDataByBufferId(UINT bufferID);
+		static ByteBuffer& ReloadByteBuffer(ByteBuffer& byteBuffer);
 	private:
 		static std::unordered_map<INT, ByteBuffer&> bufferMap;
 	};

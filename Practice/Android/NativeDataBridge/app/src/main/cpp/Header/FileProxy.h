@@ -2,7 +2,7 @@
 #define _FILE_PROXY_H_
 #include "Common.h"
 #include "IFile.h"
-namespace AmQ
+namespace LWN
 {
 	class FileProxy
 	{

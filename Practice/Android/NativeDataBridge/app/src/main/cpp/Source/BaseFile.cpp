@@ -1,5 +1,6 @@
+#include "../Header/DebugLog.h"
 #include "../Header/BaseFile.h"
-namespace AmQ
+namespace LWN
 
 {
 	BaseFile::BaseFile()

@@ -1,6 +1,6 @@
 #include "../Header/GlobalIDManager.h"
 
-namespace AmQ
+namespace LWN
 {
 	INT GlobalIDManager::__GlobalIDS = 0;
 	INT GlobalIDManager::GenerateGlobalID()

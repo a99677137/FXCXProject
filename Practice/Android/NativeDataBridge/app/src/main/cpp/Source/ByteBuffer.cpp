@@ -1,8 +1,9 @@
+#include "../Header/DebugLog.h"
 #include "../Header/ByteBuffer.h"
 #include "stdio.h"
 #include "string.h"
 
-namespace AmQ
+namespace LWN
 {
 	//static int TestIsLittleEndian()
 	//{
@@ -58,7 +59,7 @@ namespace AmQ
 	//bool ByteBuffer::IsLittleEndian = true;
 	ByteBuffer s_ByteBuffer;
 	ByteBuffer::ByteBuffer()
-		:Valid(false),BufferID(-1), buffer(NULL)
+		:Valid(false), BufferID(-1), buffer(NULL), FileName(NULL), Offset(-1), DataSize(-1)
 	{
 	}
 
@@ -136,6 +137,15 @@ namespace AmQ
 	BYTE*  ByteBuffer::GetData()
 	{
 		return buffer;
+	}
+
+	VOID ByteBuffer::DeleteData() {
+		if (buffer != NULL)
+		{
+			delete[] buffer;
+			buffer = NULL;
+			Valid = false;
+		}
 	}
 
 }

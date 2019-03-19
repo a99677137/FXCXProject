@@ -1,8 +1,7 @@
 #if __ANDROID__
 #include "../Android/AssetFile.h"
-#include "../Header/android_log.h"
-
-namespace AmQ
+#include "../Header/DebugLog.h"
+namespace LWN
 {
 	AAssetManager*  AssetFile::s_pAssetMgr = NULL;
 	AssetFile::AssetFile()
@@ -17,36 +16,38 @@ namespace AmQ
 
 	bool AssetFile::open(STRING szFileName)
 	{
-	    //LOGE("*************************AssetFile::open----szFileName = %s",szFileName);
+	    alog("----AssetFile::open-----szFileName=%s",szFileName);
 		AAsset *pAsset = AAssetManager_open(s_pAssetMgr, szFileName, AASSET_MODE_UNKNOWN);
-		//LOGE("*************************AssetFile::open----AAsset *pAsset");
-		if (pAsset == NULL){
-		    //LOGE("*************************AssetFile::open----pAsset == NULL");
+		alog("----AssetFile::open-----(pAsset == NULL)=%d",(pAsset == NULL));
+		if (pAsset == NULL)
 			return false;
-        }
-        //LOGE("*************************AssetFile::open----pAsset != NULL");
+        alog("----AssetFile::open-----pAsset OK");
 		m_uSize = AAsset_getLength(pAsset);
-		//LOGE("*************************AssetFile::open----m_uSize =%d",m_uSize);
 		AAsset_close(pAsset);
-		//LOGE("*************************AssetFile::open----AAsset_close(pAsset)");
 		m_szFileName = szFileName;
-		//LOGE("*************************AssetFile::open----m_szFileName");
 		return true;
 	}
 
 	bool AssetFile::read(VOID* buffer, UINT dataSize)
 	{
+	    alog("----AssetFile::read-----dataSize=%d",dataSize);
 		AAsset* pAsset = AAssetManager_open(s_pAssetMgr, m_szFileName, AASSET_MODE_UNKNOWN);
+		alog("----AssetFile::read-----(pAsset == NULL)=%d",(pAsset == NULL));
 		if (pAsset == NULL)
 			return false;
-
+        alog("----AssetFile::read-----pAsset OK");
 		off_t t_offset = AAsset_seek(pAsset, m_uOffset, 0);
+		alog("----AssetFile::read-----AAsset_seek");
 		int iRet = AAsset_read(pAsset, buffer, dataSize);
+		alog("----AssetFile::read-----iRet=%d",iRet);
 		if (iRet <= 0)
 		{
+		    alog("----AssetFile::read-----return false;");
 			return false;
 		}
+		alog("----AssetFile::read-----iRet > 0");
 		AAsset_close(pAsset);
+		alog("----AssetFile::read-----return buffer;");
 		return buffer;
 		return true;
 	}

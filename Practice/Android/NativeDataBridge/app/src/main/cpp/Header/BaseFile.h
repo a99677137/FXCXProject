@@ -3,7 +3,7 @@
 #include "Common.h"
 #include "stdio.h"
 #include "IFile.h"
-namespace AmQ
+namespace LWN
 {
 	class BaseFile:public IFile
 	{

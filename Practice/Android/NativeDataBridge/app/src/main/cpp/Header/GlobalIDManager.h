@@ -1,7 +1,7 @@
 #ifndef _GLOBALIDMANAGER_H_
 #define _GLOBALIDMANAGER_H_
 #include "Common.h"
-namespace AmQ
+namespace LWN
 {
 	class GlobalIDManager
 	{
