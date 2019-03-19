@@ -60,8 +60,9 @@ namespace LWN
 				{
 					pByteBuffer->buffer = (BYTE*)buffer;
 					pByteBuffer->BufferID = LWN::GlobalIDManager::GenerateGlobalID();
-					CHAR * filename = new CHAR[len];
+					CHAR * filename = new CHAR[len+1];
 					memcpy(filename, szFileName, len);
+					filename[len] = '\0';
 					alog("----ByteBufferManager::CreateByteBuffer----filename = %s",filename);
 					pByteBuffer->FileName = filename;
 					pByteBuffer->Offset = offset;
@@ -81,7 +82,7 @@ namespace LWN
 	}
 
 	INT ByteBufferManager::DestroyDataByBufferId(UINT bufferID) {
-		if (bufferID < 0) {
+		if (bufferID == 0) {
 			return -1;
 		}
 		std::unordered_map<INT, ByteBuffer&>::iterator iter = bufferMap.find(bufferID);
