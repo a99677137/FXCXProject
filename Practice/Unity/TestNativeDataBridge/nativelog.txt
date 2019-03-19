@@ -1,0 +1,19 @@
+-----------------------Native Start-----------------------------
+-----------------------CreateBufferFromFile----------szFileName = StrDictionary.bin,offset=0,dataSize=0
+----ByteBufferManager::CreateByteBuffer----filename = StrDictionary.bin
+--------BufferGetDataIntPtr---------bufferID=1 offset=5324880 dataSize = 6
+----ByteBufferManager::GetByteBuffer----bufferID = 1
+----------DestroyByBufferID----bufferID = 1
+----------ByteBufferManager::DestroyDataByBufferId----bufferID=1 filename=StrDictionary.bin Vaild=1 DataSize=5324904
+----------ByteBufferManager::DestroyDataByBufferId----bufferID=1 filename=StrDictionary.bin 
+--------BufferGetDataIntPtr---------bufferID=1 offset=5324880 dataSize = 6
+----ByteBufferManager::GetByteBuffer----bufferID = 1
+----ByteBufferManager::ReloadByteBuffer----fileName=StrDictionary.bin dataSize=5324904 offset=0
+----ByteBufferManager::ReloadByteBuffer----file.open(fileName)
+----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---fileLen = 5324904
+----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---file.seek
+----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---file.read 
+----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---Valid = true
+----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---return byteBuffer
+----ByteBufferManager::GetByteBuffer----after reload---vaild = 1
+-----------------------Native End-----------------------------
