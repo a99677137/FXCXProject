@@ -12,11 +12,15 @@ public class GameStart : MonoBehaviour {
     // Use this for initialization
     void Start () {
         msg += "GameStart!\n";
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR || UNITY_EDITOR_OSX
         NativeDataBridge.UnityNativeInit();
+#elif UNITY_ANDROID
+        NativeDataBridge.AndroidInit();
+#endif
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 
@@ -27,14 +31,14 @@ public class GameStart : MonoBehaviour {
             msg += "CreateBufferFromFile's result=" + res+"\n";
         }
 
-        if (GUI.Button(new Rect(105, 5, 100, 80), "ReadData")) {
+        if (GUI.Button(new Rect(110, 5, 100, 80), "ReadData")) {
             msg += "Click ReadData!\n";
             IntPtr dataPtrs = NativeDataBridge.BufferGetDataIntPtr(1, 5324880, 6);
             string res = Marshal.PtrToStringAnsi(dataPtrs);
             msg += "BufferGetDataIntPtr's result=" + res + "\n";
         }
 
-        if (GUI.Button(new Rect(210, 5, 100, 80), "DestroyData"))
+        if (GUI.Button(new Rect(215, 5, 100, 80), "DestroyData"))
         {
             msg += "Click DestroyData!\n";
             var res= NativeDataBridge.DestroyByBufferID(1);
