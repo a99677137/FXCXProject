@@ -1,8 +1,8 @@
 .vs
 /Debug
-.opensdf
-.sdf
-.sln
-.filters
-.user
-/64
+*.opensdf
+*.sdf
+*.sln
+*.filters
+*.user
+/x64

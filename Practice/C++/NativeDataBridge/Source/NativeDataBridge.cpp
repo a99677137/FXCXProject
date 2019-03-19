@@ -85,7 +85,7 @@ _DLLExport jint JNI_OnLoad(JavaVM* vm, void* reserved)
 	return  JNI_VERSION_1_6;
 }
 
-_DLLExport JNIEXPORT jint JNICALL InitialDLL(JNIEnv *, jobject)
+_DLLExport JNIEXPORT jint JNICALL AndroidInit(JNIEnv *, jobject)
 {
 	if (jni_env == NULL)
 		return 0;
@@ -164,11 +164,11 @@ _DLLExport unsigned char* SeekReadAssetFile(const char* filename, unsigned int& 
 
 #if _WIN64
 FILE * fConsole;
-_DLLExport FLOAT Log_Init() {
+_DLLExport INT Log_Init() {
 	
 	freopen_s(&fConsole, "nativelog.txt", "w+", stdout);
 	alog("-----------------------Native Start-----------------------------");
-	return 1.0;
+	return 1;
 }
 
 _DLLExport VOID Log_Release() {
@@ -183,7 +183,7 @@ _DLLExport VOID DestroyNative()
 	LWN::GlobalIDManager::ResetGlobalID();
 }
 
-_DLLExport FLOAT  UnityNativeInit()
+_DLLExport INT UnityNativeInit()
 {
 #if _WIN64
 	return Log_Init();
@@ -191,7 +191,7 @@ _DLLExport FLOAT  UnityNativeInit()
 	return 1.0;
 }
 
-_DLLExport VOID  UnityNativeRelease()
+_DLLExport VOID UnityNativeRelease()
 {
 #if _WIN64
 	Log_Release();
@@ -230,6 +230,11 @@ _DLLExport INT CreateBufferFromFile(STRING szFileName, UINT offset, UINT dataSiz
 
 	}
 	return -1;
+}
+
+_DLLExport INT DestroyByBufferID(INT bufferID) {
+	alog("----------DestroyByBufferID----bufferID = %d", bufferID);
+	return LWN::ByteBufferManager::DestroyDataByBufferId(bufferID);
 }
 
 _DLLExport VOID BufferGetByte(INT bufferID, UINT offset, BYTE& data)

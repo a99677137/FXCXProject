@@ -12,7 +12,8 @@ namespace LWN
 		static ByteBuffer& GetByteBuffer(INT bufferID);
 		static ByteBuffer& CreateByteBuffer(STRING szFileName, UINT dataSize, UINT offset, UINT len);
 		static VOID Destroy();
-		static FLOAT DestroyDataByBufferId(UINT bufferID);
+		static INT DestroyDataByBufferId(UINT bufferID);
+		static ByteBuffer& ReloadByteBuffer(ByteBuffer& byteBuffer);
 	private:
 		static std::unordered_map<INT, ByteBuffer&> bufferMap;
 	};
