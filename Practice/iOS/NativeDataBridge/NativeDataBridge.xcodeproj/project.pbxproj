@@ -1,0 +1,409 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		848AF22322411BA80052D9DB /* AssetFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 848AF21022411BA80052D9DB /* AssetFile.cpp */; };
+		848AF22422411BA80052D9DB /* AssetFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 848AF21122411BA80052D9DB /* AssetFile.h */; };
+		848AF22522411BA80052D9DB /* IFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 848AF21322411BA80052D9DB /* IFile.h */; };
+		848AF22622411BA80052D9DB /* DebugLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 848AF21422411BA80052D9DB /* DebugLog.h */; };
+		848AF22822411BA80052D9DB /* GlobalIDManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 848AF21622411BA80052D9DB /* GlobalIDManager.h */; };
+		848AF22922411BA80052D9DB /* ByteBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 848AF21722411BA80052D9DB /* ByteBuffer.h */; };
+		848AF22A22411BA80052D9DB /* ByteBufferManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 848AF21822411BA80052D9DB /* ByteBufferManager.h */; };
+		848AF22B22411BA80052D9DB /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 848AF21922411BA80052D9DB /* Common.h */; };
+		848AF22C22411BA80052D9DB /* BaseFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 848AF21A22411BA80052D9DB /* BaseFile.h */; };
+		848AF22D22411BA80052D9DB /* FileProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 848AF21B22411BA80052D9DB /* FileProxy.h */; };
+		848AF22E22411BA80052D9DB /* ByteBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848AF21D22411BA80052D9DB /* ByteBuffer.mm */; };
+		848AF22F22411BA80052D9DB /* BaseFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848AF21E22411BA80052D9DB /* BaseFile.mm */; };
+		848AF23022411BA80052D9DB /* FileProxy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848AF21F22411BA80052D9DB /* FileProxy.mm */; };
+		848AF23122411BA80052D9DB /* NativeDataBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848AF22022411BA80052D9DB /* NativeDataBridge.mm */; };
+		848AF23222411BA80052D9DB /* ByteBufferManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848AF22122411BA80052D9DB /* ByteBufferManager.mm */; };
+		848AF23322411BA80052D9DB /* GlobalIDManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 848AF22222411BA80052D9DB /* GlobalIDManager.mm */; };
+		848AF2362241202D0052D9DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848AF2352241202D0052D9DB /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		848AF20322411B3D0052D9DB /* libNativeDataBridge.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNativeDataBridge.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		848AF21022411BA80052D9DB /* AssetFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetFile.cpp; sourceTree = "<group>"; };
+		848AF21122411BA80052D9DB /* AssetFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetFile.h; sourceTree = "<group>"; };
+		848AF21322411BA80052D9DB /* IFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFile.h; sourceTree = "<group>"; };
+		848AF21422411BA80052D9DB /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
+		848AF21622411BA80052D9DB /* GlobalIDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalIDManager.h; sourceTree = "<group>"; };
+		848AF21722411BA80052D9DB /* ByteBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ByteBuffer.h; sourceTree = "<group>"; };
+		848AF21822411BA80052D9DB /* ByteBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ByteBufferManager.h; sourceTree = "<group>"; };
+		848AF21922411BA80052D9DB /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		848AF21A22411BA80052D9DB /* BaseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFile.h; sourceTree = "<group>"; };
+		848AF21B22411BA80052D9DB /* FileProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileProxy.h; sourceTree = "<group>"; };
+		848AF21D22411BA80052D9DB /* ByteBuffer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ByteBuffer.mm; sourceTree = "<group>"; };
+		848AF21E22411BA80052D9DB /* BaseFile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseFile.mm; sourceTree = "<group>"; };
+		848AF21F22411BA80052D9DB /* FileProxy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FileProxy.mm; sourceTree = "<group>"; };
+		848AF22022411BA80052D9DB /* NativeDataBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NativeDataBridge.mm; sourceTree = "<group>"; };
+		848AF22122411BA80052D9DB /* ByteBufferManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ByteBufferManager.mm; sourceTree = "<group>"; };
+		848AF22222411BA80052D9DB /* GlobalIDManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GlobalIDManager.mm; sourceTree = "<group>"; };
+		848AF2352241202D0052D9DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		848AF20122411B3D0052D9DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				848AF2362241202D0052D9DB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		848AF1FA22411B3D0052D9DB = {
+			isa = PBXGroup;
+			children = (
+				848AF20522411B3D0052D9DB /* NativeDataBridge */,
+				848AF20422411B3D0052D9DB /* Products */,
+				848AF2342241202C0052D9DB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		848AF20422411B3D0052D9DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				848AF20322411B3D0052D9DB /* libNativeDataBridge.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		848AF20522411B3D0052D9DB /* NativeDataBridge */ = {
+			isa = PBXGroup;
+			children = (
+				848AF20F22411BA80052D9DB /* Android */,
+				848AF21222411BA80052D9DB /* Header */,
+				848AF21C22411BA80052D9DB /* Source */,
+			);
+			path = NativeDataBridge;
+			sourceTree = "<group>";
+		};
+		848AF20F22411BA80052D9DB /* Android */ = {
+			isa = PBXGroup;
+			children = (
+				848AF21022411BA80052D9DB /* AssetFile.cpp */,
+				848AF21122411BA80052D9DB /* AssetFile.h */,
+			);
+			path = Android;
+			sourceTree = "<group>";
+		};
+		848AF21222411BA80052D9DB /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				848AF21322411BA80052D9DB /* IFile.h */,
+				848AF21422411BA80052D9DB /* DebugLog.h */,
+				848AF21622411BA80052D9DB /* GlobalIDManager.h */,
+				848AF21722411BA80052D9DB /* ByteBuffer.h */,
+				848AF21822411BA80052D9DB /* ByteBufferManager.h */,
+				848AF21922411BA80052D9DB /* Common.h */,
+				848AF21A22411BA80052D9DB /* BaseFile.h */,
+				848AF21B22411BA80052D9DB /* FileProxy.h */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		848AF21C22411BA80052D9DB /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				848AF21D22411BA80052D9DB /* ByteBuffer.mm */,
+				848AF21E22411BA80052D9DB /* BaseFile.mm */,
+				848AF21F22411BA80052D9DB /* FileProxy.mm */,
+				848AF22022411BA80052D9DB /* NativeDataBridge.mm */,
+				848AF22122411BA80052D9DB /* ByteBufferManager.mm */,
+				848AF22222411BA80052D9DB /* GlobalIDManager.mm */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		848AF2342241202C0052D9DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				848AF2352241202D0052D9DB /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		848AF1FF22411B3D0052D9DB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				848AF22822411BA80052D9DB /* GlobalIDManager.h in Headers */,
+				848AF22522411BA80052D9DB /* IFile.h in Headers */,
+				848AF22A22411BA80052D9DB /* ByteBufferManager.h in Headers */,
+				848AF22622411BA80052D9DB /* DebugLog.h in Headers */,
+				848AF22D22411BA80052D9DB /* FileProxy.h in Headers */,
+				848AF22922411BA80052D9DB /* ByteBuffer.h in Headers */,
+				848AF22C22411BA80052D9DB /* BaseFile.h in Headers */,
+				848AF22422411BA80052D9DB /* AssetFile.h in Headers */,
+				848AF22B22411BA80052D9DB /* Common.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		848AF20222411B3D0052D9DB /* NativeDataBridge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 848AF20C22411B3D0052D9DB /* Build configuration list for PBXNativeTarget "NativeDataBridge" */;
+			buildPhases = (
+				848AF1FF22411B3D0052D9DB /* Headers */,
+				848AF20022411B3D0052D9DB /* Sources */,
+				848AF20122411B3D0052D9DB /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NativeDataBridge;
+			productName = NativeDataBridge;
+			productReference = 848AF20322411B3D0052D9DB /* libNativeDataBridge.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		848AF1FB22411B3D0052D9DB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = lwntest;
+				TargetAttributes = {
+					848AF20222411B3D0052D9DB = {
+						CreatedOnToolsVersion = 10.0;
+					};
+				};
+			};
+			buildConfigurationList = 848AF1FE22411B3D0052D9DB /* Build configuration list for PBXProject "NativeDataBridge" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 848AF1FA22411B3D0052D9DB;
+			productRefGroup = 848AF20422411B3D0052D9DB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				848AF20222411B3D0052D9DB /* NativeDataBridge */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		848AF20022411B3D0052D9DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				848AF22F22411BA80052D9DB /* BaseFile.mm in Sources */,
+				848AF23222411BA80052D9DB /* ByteBufferManager.mm in Sources */,
+				848AF23022411BA80052D9DB /* FileProxy.mm in Sources */,
+				848AF22322411BA80052D9DB /* AssetFile.cpp in Sources */,
+				848AF23122411BA80052D9DB /* NativeDataBridge.mm in Sources */,
+				848AF23322411BA80052D9DB /* GlobalIDManager.mm in Sources */,
+				848AF22E22411BA80052D9DB /* ByteBuffer.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		848AF20A22411B3D0052D9DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		848AF20B22411B3D0052D9DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		848AF20D22411B3D0052D9DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7,
+					armv7s,
+					arm64,
+				);
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_BITCODE = NO;
+				EXECUTABLE_PREFIX = lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s  i386 x86_64";
+			};
+			name = Debug;
+		};
+		848AF20E22411B3D0052D9DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7,
+					armv7s,
+					arm64,
+				);
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_BITCODE = NO;
+				EXECUTABLE_PREFIX = lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s  i386 x86_64";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		848AF1FE22411B3D0052D9DB /* Build configuration list for PBXProject "NativeDataBridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				848AF20A22411B3D0052D9DB /* Debug */,
+				848AF20B22411B3D0052D9DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		848AF20C22411B3D0052D9DB /* Build configuration list for PBXNativeTarget "NativeDataBridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				848AF20D22411B3D0052D9DB /* Debug */,
+				848AF20E22411B3D0052D9DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 848AF1FB22411B3D0052D9DB /* Project object */;
+}
