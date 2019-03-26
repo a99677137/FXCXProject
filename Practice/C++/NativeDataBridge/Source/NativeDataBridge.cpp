@@ -61,6 +61,10 @@
 
 CHAR * g_sdata = new CHAR[10240];
 
+#if TARGET_OS_IPHONE || TARGET_OS_MAC
+#include <Foundation/Foundation.h>
+#endif
+
 
 #if __ANDROID__
 #include <jni.h>

@@ -89,9 +89,10 @@ namespace LWN
 		if (iter != bufferMap.end())
 		{
 			ByteBuffer& buf = iter->second;
-			if(buf.Valid == false){
-				return 1;
-			}
+            if(buf.Valid == false){
+                alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s Vaild=%d DataSize=%d buf.(Valid = false)!!!", bufferID, buf.FileName, buf.Valid, buf.DataSize);
+                return 1;
+            }
 			alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s Vaild=%d DataSize=%d", bufferID, buf.FileName, buf.Valid, buf.DataSize);
 			buf.DeleteData();
 			alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s ", bufferID, buf.FileName);

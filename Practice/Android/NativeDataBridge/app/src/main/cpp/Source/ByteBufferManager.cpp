@@ -88,10 +88,14 @@ namespace LWN
 		if (iter != bufferMap.end())
 		{
 			ByteBuffer& buf = iter->second;
+            if(buf.Valid == false){
+                alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s Vaild=%d DataSize=%d buf.(Valid = false)!!!", bufferID, buf.FileName, buf.Valid, buf.DataSize);
+                return 1;
+            }
 			alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s Vaild=%d DataSize=%d", bufferID, buf.FileName, buf.Valid, buf.DataSize);
 			buf.DeleteData();
 			alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s ", bufferID, buf.FileName);
-			return 1.0;
+			return 1;
 		}
 		return 0;
 	}
@@ -113,7 +117,7 @@ namespace LWN
 			}
 			file.seek(offset);
 			alog("----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---file.seek");
-			if (offset + dataSize > fileLen)
+			if (offset + dataSize > (int)fileLen)
 			{
 				alog("----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---offset + dataSize > fileLen");
 				return byteBuffer;
