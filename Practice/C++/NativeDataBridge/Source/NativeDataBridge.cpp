@@ -1,4 +1,4 @@
-// NativeDataBridge.cpp Defines the exported functions for the DLL application.
+﻿// NativeDataBridge.cpp Defines the exported functions for the DLL application.
 
 #include "../Header/Common.h"
 #include "../Header/DebugLog.h"
@@ -188,7 +188,7 @@ _DLLExport INT UnityNativeInit()
 #if _WIN64
 	return Log_Init();
 #endif
-	return 1.0;
+	return 1;
 }
 
 _DLLExport VOID UnityNativeRelease()
