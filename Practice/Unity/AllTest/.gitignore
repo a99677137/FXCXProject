@@ -1,0 +1,6 @@
+/Library
+/Temp
+/.vs
+.DS_Store
+*.sln
+/obj
