@@ -16,12 +16,12 @@ namespace LWN
 
 	bool AssetFile::open(STRING szFileName)
 	{
-	    alog("----AssetFile::open-----szFileName=%s",szFileName);
+	    //alog("----AssetFile::open-----szFileName=%s",szFileName);
 		AAsset *pAsset = AAssetManager_open(s_pAssetMgr, szFileName, AASSET_MODE_UNKNOWN);
-		alog("----AssetFile::open-----(pAsset == NULL)=%d",(pAsset == NULL));
+		//alog("----AssetFile::open-----(pAsset == NULL)=%d",(pAsset == NULL));
 		if (pAsset == NULL)
 			return false;
-        alog("----AssetFile::open-----pAsset OK");
+        //alog("----AssetFile::open-----pAsset OK");
 		m_uSize = AAsset_getLength(pAsset);
 		AAsset_close(pAsset);
 		m_szFileName = szFileName;
@@ -30,24 +30,24 @@ namespace LWN
 
 	bool AssetFile::read(VOID* buffer, UINT dataSize)
 	{
-	    alog("----AssetFile::read-----dataSize=%d",dataSize);
+	    //alog("----AssetFile::read-----dataSize=%d",dataSize);
 		AAsset* pAsset = AAssetManager_open(s_pAssetMgr, m_szFileName, AASSET_MODE_UNKNOWN);
-		alog("----AssetFile::read-----(pAsset == NULL)=%d",(pAsset == NULL));
+		//alog("----AssetFile::read-----(pAsset == NULL)=%d",(pAsset == NULL));
 		if (pAsset == NULL)
 			return false;
-        alog("----AssetFile::read-----pAsset OK");
+        //alog("----AssetFile::read-----pAsset OK");
 		off_t t_offset = AAsset_seek(pAsset, m_uOffset, 0);
-		alog("----AssetFile::read-----AAsset_seek");
+		//alog("----AssetFile::read-----AAsset_seek");
 		int iRet = AAsset_read(pAsset, buffer, dataSize);
-		alog("----AssetFile::read-----iRet=%d",iRet);
+		//alog("----AssetFile::read-----iRet=%d",iRet);
 		if (iRet <= 0)
 		{
-		    alog("----AssetFile::read-----return false;");
+		    //alog("----AssetFile::read-----return false;");
 			return false;
 		}
-		alog("----AssetFile::read-----iRet > 0");
+		//alog("----AssetFile::read-----iRet > 0");
 		AAsset_close(pAsset);
-		alog("----AssetFile::read-----return buffer;");
+		//alog("----AssetFile::read-----return buffer;");
 		return buffer;
 		return true;
 	}
