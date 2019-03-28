@@ -6,12 +6,17 @@
 
 namespace LWN
 {
+#ifdef LWNTEST
+	FLOAT ByteBufferManager::memeryTotal = 0.f;
+	FLOAT ByteBufferManager::memeryDelete = 0.f;
+	FLOAT ByteBufferManager::memeryReload = 0.f;
+#endif
 
 	std::unordered_map<INT, ByteBuffer&> ByteBufferManager::bufferMap;
 
 	ByteBuffer& ByteBufferManager::GetByteBuffer(INT bufferID)
 	{
-		alog("----ByteBufferManager::GetByteBuffer----bufferID = %d", bufferID);
+		//alog("----ByteBufferManager::GetByteBuffer----bufferID = %d", bufferID);
 		std::unordered_map<INT, ByteBuffer&>::iterator iter = bufferMap.find(bufferID);
 		if (iter != bufferMap.end())
 		{
@@ -20,7 +25,7 @@ namespace LWN
 			}
 			else {
 				ReloadByteBuffer(iter->second);
-				alog("----ByteBufferManager::GetByteBuffer----after reload---vaild = %d", iter->second.Valid);
+				//alog("----ByteBufferManager::GetByteBuffer----after reload---vaild = %d", iter->second.Valid);
 				return iter->second;
 			}
 		}
@@ -63,12 +68,16 @@ namespace LWN
 					CHAR * filename = new CHAR[len+1];
 					memcpy(filename, szFileName, len);
 					filename[len] = '\0';
-					alog("----ByteBufferManager::CreateByteBuffer----filename = %s",filename);
+					//alog("----ByteBufferManager::CreateByteBuffer----filename = %s",filename);
 					pByteBuffer->FileName = filename;
 					pByteBuffer->Offset = offset;
 					pByteBuffer->DataSize = dataSize;
 					pByteBuffer->Valid = true;
 					bufferMap.insert(std::unordered_map<INT, ByteBuffer&>::value_type(pByteBuffer->BufferID, *pByteBuffer));
+#ifdef LWNTEST
+					memeryTotal = memeryTotal + (FLOAT)dataSize;
+					alog("----------ByteBufferManager::CreateByteBuffer----bufferID=%d filename=%s dataSize=%d memeryTotal=%fMB memeryDelete=%fMB memeryReload=%fKB", pByteBuffer->BufferID, pByteBuffer->FileName, pByteBuffer->DataSize, memeryTotal / 1024 / 1024, memeryDelete / 1024 / 1024, memeryReload / 1024);
+#endif
 					return *pByteBuffer;
 				}
 				else
@@ -90,12 +99,16 @@ namespace LWN
 		{
 			ByteBuffer& buf = iter->second;
             if(buf.Valid == false){
-                alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s Vaild=%d DataSize=%d buf.(Valid = false)!!!", bufferID, buf.FileName, buf.Valid, buf.DataSize);
+                //alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s Vaild=%d DataSize=%d buf.(Valid = false)!!!", bufferID, buf.FileName, buf.Valid, buf.DataSize);
                 return 1;
             }
-			alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s Vaild=%d DataSize=%d", bufferID, buf.FileName, buf.Valid, buf.DataSize);
+			//alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s Vaild=%d DataSize=%d", bufferID, buf.FileName, buf.Valid, buf.DataSize);
 			buf.DeleteData();
-			alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s ", bufferID, buf.FileName);
+#ifdef LWNTEST
+			memeryTotal = memeryTotal - (FLOAT)buf.DataSize;
+			memeryDelete = memeryDelete + (FLOAT)buf.DataSize;
+			alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s dataSize=%d memeryTotal=%fMB memeryDelete=%fMB memeryReload=%fKB", bufferID, buf.FileName,buf.DataSize, memeryTotal/1024/1024, memeryDelete/1024/1024, memeryReload/1024);
+#endif
 			return 1;
 		}
 		return 0;
@@ -105,22 +118,16 @@ namespace LWN
 		STRING fileName = byteBuffer.FileName;
 		int dataSize = byteBuffer.DataSize;
 		int offset = byteBuffer.Offset;
-		alog("----ByteBufferManager::ReloadByteBuffer----fileName=%s dataSize=%d offset=%d",fileName,dataSize,offset);
 		LWN::FileProxy file;
 		if (file.open(fileName))
 		{
-			alog("----ByteBufferManager::ReloadByteBuffer----file.open(fileName)");
 			UINT fileLen = file.length();
-			alog("----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---fileLen = %d", fileLen);
 			if ( dataSize <= 0) {
-				alog("----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---dont seek");
 				dataSize = fileLen;
 			}
 			file.seek(offset);
-			alog("----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---file.seek");
 			if (offset + dataSize > (int)fileLen)
 			{
-				alog("----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---offset + dataSize > fileLen");
 				return byteBuffer;
 			}
 			else
@@ -128,15 +135,16 @@ namespace LWN
 				CHAR* buffer = new CHAR[dataSize];
 				if (file.read(buffer, dataSize))
 				{
-					alog("----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---file.read ");
 					byteBuffer.buffer = (BYTE*)buffer;
 					byteBuffer.Valid = true;
-					alog("----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---Valid = true");
+					//alog("----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---Valid = true");
 				}
-
+#ifdef LWNTEST
+				memeryReload = memeryReload + (FLOAT)dataSize;
+				alog("----ByteBufferManager::ReloadByteBuffer----fileName=%s buffId=%d memeryReload=%fKB memeryTotal=%fMB memeryDelete=%fMB", fileName, byteBuffer.BufferID, memeryReload/1024, memeryTotal/1024/1024, memeryDelete/1024/1024);
+#endif
 			}
 		}
-		alog("----ByteBufferManager::ReloadByteBuffer----file.open(fileName)---return byteBuffer");
 		return byteBuffer;
 	}
 	
