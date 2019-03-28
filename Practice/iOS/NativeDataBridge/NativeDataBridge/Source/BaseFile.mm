@@ -19,9 +19,7 @@ namespace LWN
 
 	bool BaseFile::open(STRING szFileName)
 	{
-		if (fp != NULL) return false;
-		fp = fopen(szFileName, "rb");
-		if (fp != NULL)
+		if (fopen_s(&fp, szFileName, "rb"))
 		{
 			Valid = true;
 			return true;
