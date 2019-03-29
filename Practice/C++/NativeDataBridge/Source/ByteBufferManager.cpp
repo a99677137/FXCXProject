@@ -76,7 +76,7 @@ namespace LWN
 					bufferMap.insert(std::unordered_map<INT, ByteBuffer&>::value_type(pByteBuffer->BufferID, *pByteBuffer));
 #ifdef LWNTEST
 					memeryTotal = memeryTotal + (FLOAT)dataSize;
-					alog("----------ByteBufferManager::CreateByteBuffer----bufferID=%d filename=%s dataSize=%d memeryTotal=%fMB memeryDelete=%fMB memeryReload=%fKB", pByteBuffer->BufferID, pByteBuffer->FileName, pByteBuffer->DataSize, memeryTotal / 1024 / 1024, memeryDelete / 1024 / 1024, memeryReload / 1024);
+					alog("----------ByteBufferManager::CreateByteBuffer----bufferID=%d filename=%s dataSize=%d memeryTotal=%fMB memeryDelete=%fMB memeryReload=%fMB", pByteBuffer->BufferID, pByteBuffer->FileName, pByteBuffer->DataSize, memeryTotal / 1024 / 1024, memeryDelete / 1024 / 1024, memeryReload / 1024/1024);
 #endif
 					return *pByteBuffer;
 				}
@@ -107,7 +107,7 @@ namespace LWN
 #ifdef LWNTEST
 			memeryTotal = memeryTotal - (FLOAT)buf.DataSize;
 			memeryDelete = memeryDelete + (FLOAT)buf.DataSize;
-			alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s dataSize=%d memeryTotal=%fMB memeryDelete=%fMB memeryReload=%fKB", bufferID, buf.FileName,buf.DataSize, memeryTotal/1024/1024, memeryDelete/1024/1024, memeryReload/1024);
+			alog("----------ByteBufferManager::DestroyDataByBufferId----bufferID=%d filename=%s dataSize=%d memeryTotal=%fMB memeryDelete=%fMB memeryReload=%fMB", bufferID, buf.FileName,buf.DataSize, memeryTotal/1024/1024, memeryDelete/1024/1024, memeryReload/1024/1024);
 #endif
 			return 1;
 		}
@@ -141,7 +141,8 @@ namespace LWN
 				}
 #ifdef LWNTEST
 				memeryReload = memeryReload + (FLOAT)dataSize;
-				alog("----ByteBufferManager::ReloadByteBuffer----fileName=%s buffId=%d memeryReload=%fKB memeryTotal=%fMB memeryDelete=%fMB", fileName, byteBuffer.BufferID, memeryReload/1024, memeryTotal/1024/1024, memeryDelete/1024/1024);
+				memeryTotal = memeryTotal + (FLOAT)dataSize;
+				alog("----ByteBufferManager::ReloadByteBuffer----fileName=%s buffId=%d memeryReload=%fMB memeryTotal=%fMB memeryDelete=%fMB", fileName, byteBuffer.BufferID, memeryReload/1024/1024, memeryTotal/1024/1024, memeryDelete/1024/1024);
 #endif
 			}
 		}
