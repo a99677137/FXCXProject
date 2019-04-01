@@ -331,6 +331,27 @@ _DLLExport VOID BufferGetULong(INT bufferID, UINT offset, UINT64& data)
 	}
 }
 
+/************************************************************************/
+/* 关于从文件中读取string时，此Function会在Unity538f1的版本il2cpp的包里面报错崩溃，mono版本可以愉快的奔跑
+	但是在Unity2017后不再有问题。
+	问题：在C#中创建一定长度的byte数据。将数组引用传给char* data,通过memcpy向data写入string数据后，回到C#层。乱码~崩溃。
+	怀疑1：中文乱码。经验证不是乱码问题。文件再生成和读取时均使用的Utf-8的编码。所以编码不应该有问题
+	怀疑2：C++字符串数组的/0问题。 经验证跟/0没有关系。因为将字符数据在C++层存进byte数据后逐个打印byte值。发现跟在C#层逐个打印byte值不同。
+		只有byte数组的第一个byte是有值的~其他的全为0。所以断定是从C++到C#层，数据有问题。但是又是同一个static的byte数组。
+		因此猜测，Unity5.3.8f1版本转il2cpp的代码有bug。从非托管区到C#的托管转换会丢失数据。因为Unity2017的版本在il2cpp下可以愉快的传托管区域的static数组引用
+		经考虑改为下面的BufferGetDataIntPtr方法。
+		C#层调用为：
+		IntPtr data= NativeBridge.BufferGetDataIntPtr(bb._bufferID, (uint)startPos, (uint)len);
+		String str = Marshal.PtrToStringAnsi(data);
+		至此可以愉快的得到我想要的字符串。。。并且节省了C#层static byte []数组的创建。将将这个中间层的数据中转放在了C++层，也就是g_sdata。节省了mono内存
+
+
+		补充之前会有问题的用法：（Unity2017的il2cpp是没问题的）
+		public static byte[] strBytes = new byte[10240];
+		NativeBridge.BufferGetData(bb._bufferID, (uint)startPos, (uint)len, ref strBytes[0]);
+		String str = Encoding.UTF8.GetString(strBytes, 0, len);
+*/
+/************************************************************************/
 _DLLExport VOID BufferGetData(INT bufferID, UINT offset, UINT dataSize, CHAR* data)
 {
 	LWN::ByteBuffer& byteBuffer = LWN::ByteBufferManager::GetByteBuffer(bufferID);
