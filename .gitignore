@@ -2,5 +2,6 @@ FXCX/Library
 FXCX/Temp
 *.sln
 FXCX/.vs
+FXCX/UnityPackageManager
 package/
 .DS_Store
