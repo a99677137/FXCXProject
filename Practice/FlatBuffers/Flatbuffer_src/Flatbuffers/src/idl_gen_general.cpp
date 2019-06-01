@@ -1020,7 +1020,7 @@ class GeneralGenerator : public BaseGenerator {
 	  std::string tableName = struct_def.name.data();
 	  std::string tableStr = tableName.erase(0, tableName.size() - 5);
 	  //printf("tableName = %s , tableStr = %s", tableName.c_str(), tableStr.c_str());
-	  if (lang_.language == IDLOptions::kCSharp && isDataTable && tableStr.compare("Table") == 0) {
+	  if (lang_.language == IDLOptions::kCSharp && isDataTable){// && tableStr.compare("Table") == 0) {
 		  code += "\n//LWN_Modify\n";
 		  code += "public Dictionary<int, object> GetTableData() {\n";
 		  code += "Dictionary<int, object> table = new Dictionary<int,object>();\n";
