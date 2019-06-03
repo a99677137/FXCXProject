@@ -1,0 +1,9 @@
+UINT16	string	string	string	string	bool
+ID	$说明	资源名字	命名空间	资源path	是否拆分
+#id	说明	tableName	namespace	path	IsSplit
+1	字典表	StrDictionary	Games.Test.Table.Static	/StrDictionary.txt	TRUE
+2	怪物表	MonsterAttrTable	Games.Test.Table.Static	/MonsterAttrExTable.txt	TRUE
+3		CommonItem	Games.Test.Table.Static	/CommonItem.txt	TRUE
+4	技能主表	SkillTemplateTable	Games.Test.Table.Static	/SkillTemplate_V1.txt	TRUE
+5	技能实例表	SkillDataTable	Games.Test.Table.Static	/SkillData_V1.txt	TRUE
+6	聊天表情	Emotion	Games.Test.Table.Static	/Emotion.txt	FALSE

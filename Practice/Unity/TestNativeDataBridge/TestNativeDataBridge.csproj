@@ -67,10 +67,47 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
+    <Reference Include="GameLog">
+      <HintPath>Assets\Depends\GameLog.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\GameStart.cs" />
-    <Compile Include="Assets\Script\NativeDataBridge.cs" />
+    <Compile Include="Assets\Depends\Flatbuffers\ByteBuffer.cs" />
+    <Compile Include="Assets\Depends\Flatbuffers\ByteBufferUtil.cs" />
+    <Compile Include="Assets\Depends\Flatbuffers\FlatBufferBuilder.cs" />
+    <Compile Include="Assets\Depends\Flatbuffers\FlatBufferConstants.cs" />
+    <Compile Include="Assets\Depends\Flatbuffers\IFlatbufferObject.cs" />
+    <Compile Include="Assets\Depends\Flatbuffers\Offset.cs" />
+    <Compile Include="Assets\Depends\Flatbuffers\Struct.cs" />
+    <Compile Include="Assets\Depends\Flatbuffers\Table.cs" />
+    <Compile Include="Assets\Script\Table\Games\TLBB\Table\Static\CommonItem.cs" />
+    <Compile Include="Assets\Script\Table\Games\TLBB\Table\Static\CommonItemVO.cs" />
+    <Compile Include="Assets\Script\Table\Games\TLBB\Table\Static\Emotion.cs" />
+    <Compile Include="Assets\Script\Table\Games\TLBB\Table\Static\EmotionVO.cs" />
+    <Compile Include="Assets\Script\Table\Games\TLBB\Table\Static\MonsterAttrTable.cs" />
+    <Compile Include="Assets\Script\Table\Games\TLBB\Table\Static\MonsterAttrTableVO.cs" />
+    <Compile Include="Assets\Script\Table\Games\TLBB\Table\Static\SkillDataTable.cs" />
+    <Compile Include="Assets\Script\Table\Games\TLBB\Table\Static\SkillDataTableVO.cs" />
+    <Compile Include="Assets\Script\Table\Games\TLBB\Table\Static\SkillTemplateTable.cs" />
+    <Compile Include="Assets\Script\Table\Games\TLBB\Table\Static\SkillTemplateTableVO.cs" />
+    <Compile Include="Assets\Script\Table\Games\TLBB\Table\Static\StrDictionary.cs" />
+    <Compile Include="Assets\Script\Table\Games\TLBB\Table\Static\StrDictionaryVO.cs" />
+    <Compile Include="Assets\Script\Table\Games\Test\Table\Static\CommonItem.cs" />
+    <Compile Include="Assets\Script\Table\Games\Test\Table\Static\CommonItemVO.cs" />
+    <Compile Include="Assets\Script\Table\Games\Test\Table\Static\Emotion.cs" />
+    <Compile Include="Assets\Script\Table\Games\Test\Table\Static\EmotionVO.cs" />
+    <Compile Include="Assets\Script\Table\Games\Test\Table\Static\MonsterAttrTable.cs" />
+    <Compile Include="Assets\Script\Table\Games\Test\Table\Static\MonsterAttrTableVO.cs" />
+    <Compile Include="Assets\Script\Table\Games\Test\Table\Static\SkillDataTable.cs" />
+    <Compile Include="Assets\Script\Table\Games\Test\Table\Static\SkillDataTableVO.cs" />
+    <Compile Include="Assets\Script\Table\Games\Test\Table\Static\SkillTemplateTable.cs" />
+    <Compile Include="Assets\Script\Table\Games\Test\Table\Static\SkillTemplateTableVO.cs" />
+    <Compile Include="Assets\Script\Table\Games\Test\Table\Static\StrDictionary.cs" />
+    <Compile Include="Assets\Script\Table\Games\Test\Table\Static\StrDictionaryVO.cs" />
+    <Compile Include="Assets\Script\TestNativeDataBridge\GameStart.cs" />
+    <Compile Include="Assets\Script\TestNativeDataBridge\NativeDataBridge.cs" />
+    <Compile Include="Assets\Script\TestReadSplitTable\LoadSpliteTable.cs" />
+    <Compile Include="Assets\Script\TestReadSplitTable\TableConfig.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

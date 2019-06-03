@@ -50,6 +50,8 @@ public class TableToolManager
     private string ProcessName = "/GenerateAllTable.command";
 #elif UNITY_STANDALONE_WIN
     private string ProcessName = "/GenerateAllTable.bat";
+#else
+    private string ProcessName = "/GenerateAllTable.bat";
 #endif
 
 
